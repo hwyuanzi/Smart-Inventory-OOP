@@ -1,4 +1,4 @@
-# Final Project Proposal: SmartInventory - Inventory Tracking and Restocking System
+# SmartInventory - Inventory Tracking and Restocking System
 
 **Object-Oriented Programming**
 
@@ -10,9 +10,6 @@
 * **Han Xiao** (hx2311@nyu.edu)
 
 ---
-
-## GitHub Repository URL
-[Add repository link here]
 
 ## 1. Project Description and Scope
 For our final project, we propose **SmartInventory**, an object-oriented inventory management system designed to help small businesses track products, manage stock levels, and monitor low-stock items using a command-line interface (CLI). Many businesses face challenges such as overstocking, understocking, and limited visibility into current inventory levels. This system, which we aim to implement in **C++**, addresses these issues by providing an organized and automated approach to inventory tracking, stock updates, and low-stock monitoring.
