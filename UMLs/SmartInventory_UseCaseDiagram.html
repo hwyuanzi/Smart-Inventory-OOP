@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartInventory - Use Case Diagram</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .uc-oval { fill:#fff; stroke:#000; stroke-width:1.5; }
+        .uc-text { font-family:sans-serif; font-size:12px; fill:#000; text-anchor:middle; }
+        .uc-text-sm { font-family:sans-serif; font-size:11px; fill:#000; text-anchor:middle; }
+        .actor-text { font-family:sans-serif; font-size:12px; fill:#000; text-anchor:middle; }
+        .boundary-rect { fill:none; stroke:#000; stroke-width:2; }
+        .boundary-label { font-family:sans-serif; font-size:14px; font-weight:600; fill:#000; text-anchor:middle; }
+        .rel-line { stroke:#000; stroke-width:1.2; stroke-dasharray:6,4; fill:none; }
+        .rel-label { font-family:sans-serif; font-size:10px; fill:#000; text-anchor:middle; font-style:italic; }
+        .assoc-line { stroke:#000; stroke-width:1.4; fill:none; }
+        .stick-head { fill:none; stroke:#000; stroke-width:1.5; }
+        .stick-body { stroke:#000; stroke-width:1.5; fill:none; }
+    </style>
+</head>
+<body>
+<svg width="960" viewBox="0 0 960 980" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+    </defs>
+
+    <!-- System Boundary -->
+    <rect class="boundary-rect" x="160" y="60" width="780" height="900" rx="8"/>
+    <text class="boundary-label" x="550" y="90">SmartInventory System</text>
+
+    <!-- Actor: Employee User -->
+    <circle class="stick-head" cx="70" cy="230" r="18"/>
+    <line class="stick-body" x1="70" y1="248" x2="70" y2="310"/>
+    <line class="stick-body" x1="40" y1="270" x2="100" y2="270"/>
+    <line class="stick-body" x1="70" y1="310" x2="45" y2="350"/>
+    <line class="stick-body" x1="70" y1="310" x2="95" y2="350"/>
+    <text class="actor-text" x="70" y="373">Employee User</text>
+    <text class="actor-text" x="70" y="388">(Standard)</text>
+
+    <!-- Actor: Inventory Manager -->
+    <circle class="stick-head" cx="70" cy="640" r="18"/>
+    <line class="stick-body" x1="70" y1="658" x2="70" y2="720"/>
+    <line class="stick-body" x1="40" y1="680" x2="100" y2="680"/>
+    <line class="stick-body" x1="70" y1="720" x2="45" y2="760"/>
+    <line class="stick-body" x1="70" y1="720" x2="95" y2="760"/>
+    <text class="actor-text" x="70" y="783">Inventory Manager</text>
+    <text class="actor-text" x="70" y="798">(Admin)</text>
+
+    <!-- UC-01: View Full Inventory -->
+    <ellipse class="uc-oval" cx="380" cy="170" rx="130" ry="28"/>
+    <text class="uc-text" x="380" y="165">UC-01: View Full Inventory</text>
+
+    <!-- UC-02: Search Item -->
+    <ellipse class="uc-oval" cx="380" cy="255" rx="110" ry="28"/>
+    <text class="uc-text" x="380" y="250">UC-02: Search Item</text>
+
+    <!-- UC-03: Record Sale / Make Transaction -->
+    <ellipse class="uc-oval" cx="380" cy="340" rx="150" ry="28"/>
+    <text class="uc-text-sm" x="380" y="335">UC-03: Record Sale /</text>
+    <text class="uc-text-sm" x="380" y="350">Make Transaction</text>
+
+    <!-- UC-04: Authenticate Manager Access -->
+    <ellipse class="uc-oval" cx="700" cy="540" rx="155" ry="28"/>
+    <text class="uc-text-sm" x="700" y="535">UC-04: Authenticate</text>
+    <text class="uc-text-sm" x="700" y="550">Manager Access</text>
+
+    <!-- UC-05: Add Item -->
+    <ellipse class="uc-oval" cx="360" cy="460" rx="105" ry="28"/>
+    <text class="uc-text" x="360" y="455">UC-05: Add Item</text>
+
+    <!-- UC-06: Delete Item -->
+    <ellipse class="uc-oval" cx="360" cy="550" rx="110" ry="28"/>
+    <text class="uc-text" x="360" y="545">UC-06: Delete Item</text>
+
+    <!-- UC-07: Check Low Stock Alerts -->
+    <ellipse class="uc-oval" cx="360" cy="640" rx="148" ry="28"/>
+    <text class="uc-text-sm" x="360" y="635">UC-07: Check Low</text>
+    <text class="uc-text-sm" x="360" y="650">Stock Alerts</text>
+
+    <!-- UC-08: Update Item Details -->
+    <ellipse class="uc-oval" cx="360" cy="730" rx="140" ry="28"/>
+    <text class="uc-text" x="360" y="725">UC-08: Update Item Details</text>
+
+    <!-- UC-09: Update Stock Quantity -->
+    <ellipse class="uc-oval" cx="360" cy="820" rx="145" ry="28"/>
+    <text class="uc-text-sm" x="360" y="815">UC-09: Update Stock</text>
+    <text class="uc-text-sm" x="360" y="830">Quantity</text>
+
+    <!-- UC-10: Review Restock Requests -->
+    <ellipse class="uc-oval" cx="700" cy="730" rx="155" ry="28"/>
+    <text class="uc-text-sm" x="700" y="725">UC-10: Review Restock</text>
+    <text class="uc-text-sm" x="700" y="740">Requests</text>
+
+    <!-- UC-11: Generate Low-Stock Alert -->
+    <ellipse class="uc-oval" cx="700" cy="350" rx="155" ry="28"/>
+    <text class="uc-text-sm" x="700" y="345">UC-11: Generate</text>
+    <text class="uc-text-sm" x="700" y="360">Low-Stock Alert</text>
+
+    <!-- Association: Employee → UC-01 -->
+    <line class="assoc-line" x1="100" y1="255" x2="248" y2="210"/>
+    <!-- Association: Employee → UC-02 -->
+    <line class="assoc-line" x1="108" y1="270" x2="268" y2="262"/>
+    <!-- Association: Employee → UC-03 -->
+    <line class="assoc-line" x1="108" y1="290" x2="228" y2="327"/>
+
+    <!-- Association: Manager → UC-04 -->
+    <line class="assoc-line" x1="100" y1="655" x2="543" y2="547"/>
+    <!-- Association: Manager → UC-05 -->
+    <line class="assoc-line" x1="100" y1="660" x2="253" y2="480"/>
+    <!-- Association: Manager → UC-06 -->
+    <line class="assoc-line" x1="100" y1="665" x2="248" y2="550"/>
+    <!-- Association: Manager → UC-07 -->
+    <line class="assoc-line" x1="108" y1="670" x2="210" y2="645"/>
+    <!-- Association: Manager → UC-08 -->
+    <line class="assoc-line" x1="108" y1="690" x2="218" y2="722"/>
+    <!-- Association: Manager → UC-09 -->
+    <line class="assoc-line" x1="108" y1="700" x2="213" y2="800"/>
+    <!-- Association: Manager → UC-10 -->
+    <line class="assoc-line" x1="100" y1="665" x2="543" y2="718"/>
+
+    <!-- <<include>>: UC-05 → UC-04 -->
+    <path class="rel-line" d="M440 450 Q540 490 543 520" marker-end="url(#arr)"/>
+    <text class="rel-label" x="520" y="472">«include»</text>
+
+    <!-- <<include>>: UC-06 → UC-04 -->
+    <path class="rel-line" d="M445 543 Q555 540 543 538" marker-end="url(#arr)"/>
+    <text class="rel-label" x="510" y="528">«include»</text>
+
+    <!-- <<include>>: UC-07 → UC-04 -->
+    <path class="rel-line" d="M480 627 Q560 590 543 560" marker-end="url(#arr)"/>
+    <text class="rel-label" x="535" y="590">«include»</text>
+
+    <!-- <<include>>: UC-08 → UC-04 -->
+    <path class="rel-line" d="M478 718 Q595 640 600 570" marker-end="url(#arr)"/>
+    <text class="rel-label" x="570" y="640">«include»</text>
+
+    <!-- <<include>>: UC-09 → UC-04 -->
+    <path class="rel-line" d="M480 808 Q640 700 630 570" marker-end="url(#arr)"/>
+    <text class="rel-label" x="610" y="690">«include»</text>
+
+    <!-- <<include>>: UC-10 → UC-04 -->
+    <path class="rel-line" d="M700 702 L700 570" marker-end="url(#arr)"/>
+    <text class="rel-label" x="718" y="635">«include»</text>
+
+    <!-- <<extend>>: UC-11 → UC-03 -->
+    <path class="rel-line" d="M566 342 L532 342" marker-end="url(#arr)"/>
+    <text class="rel-label" x="548" y="330">«extend»</text>
+
+    <!-- <<extend>>: UC-11 → UC-09 -->
+    <path class="rel-line" d="M668 376 Q640 580 540 806" marker-end="url(#arr)"/>
+    <text class="rel-label" x="596" y="580">«extend»</text>
+
+    <!-- <<extend>>: UC-10 → UC-07 -->
+    <path class="rel-line" d="M568 730 L510 660" marker-end="url(#arr)"/>
+    <text class="rel-label" x="515" y="708">«extend»</text>
+</svg>
+</body>
+</html>
