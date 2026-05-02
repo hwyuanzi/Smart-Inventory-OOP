@@ -13,6 +13,7 @@ private:
 public:
     // class constructor
     Item(int id, string name, int quantity, double price);
+    ~Item();
 
     // getter methods
     int getID() const;
