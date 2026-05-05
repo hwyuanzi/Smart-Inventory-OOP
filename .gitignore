@@ -1,0 +1,73 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# C++ build artifacts
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+*.app
+*.gch
+*.pch
+*.d
+
+# Executables / binaries
+bin/
+build/
+cmake-build-*/
+out/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+_deps/
+compile_commands.json
+
+# Debug
+*.dSYM/
+*.su
+*.idb
+*.pdb
+*.ilk
+*.exp
+core
+vgcore.*
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.iml
+.cproject
+.project
+.settings/
+.clangd/
+.cache/
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
