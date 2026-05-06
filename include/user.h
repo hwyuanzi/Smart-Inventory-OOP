@@ -1,17 +1,13 @@
-#include <string>
-using namespace std;
+#ifndef USER_H
+#define USER_H
+
+class Inventory;
 
 class User
 {
-    // protected attributes
-protected:
-    string username;
-
-    // constructor
 public:
-    User(string username);
-    virtual void menu() = 0;
-
-    // getter method
-    string getUsername() const;
+    virtual void menu(Inventory &inventory) = 0;
+    virtual ~User() {}
 };
+
+#endif

@@ -1,15 +1,17 @@
+#ifndef MANAGER_H
+#define MANAGER_H
+
 #include "user.h"
-#include "inventory.h"
 
 class Manager : public User
 {
-private:
-    Inventory &inventory;
-
 public:
-    Manager(string username, Inventory &inventory);
-    void menu() override;
-    void addItem();
-    void removeItem();
-    void updateItem();
+    void menu(Inventory &inventory) override;
+
+private:
+    void handleAdd(Inventory &inventory);
+    void handleDelete(Inventory &inventory);
+    void handleRecordSale(Inventory &inventory);
 };
+
+#endif

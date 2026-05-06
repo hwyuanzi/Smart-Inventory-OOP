@@ -1,3 +1,6 @@
+#ifndef ITEM_H
+#define ITEM_H
+
 #include <string>
 using namespace std;
 
@@ -7,25 +10,25 @@ class Item
 private:
     int id;
     string name;
-    int quantity;
+    int qty;
     double price;
+    int threshold;
 
 public:
-    // class constructor
-    Item(int id, string name, int quantity, double price);
-    ~Item();
+    Item(int id, string name, int qty, double price, int threshold);
 
-    // getter methods
     int getID() const;
     string getName() const;
     int getQuantity() const;
     double getPrice() const;
+    int getThreshold() const;
 
-    // setter methods
     void setName(string name);
-    void setQuantity(int quantity);
+    void setQuantity(int qty);
     void setPrice(double price);
 
-    // display item details
+    // dispay item details
     void display() const;
 };
+
+#endif

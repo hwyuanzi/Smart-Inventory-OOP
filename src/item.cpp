@@ -3,12 +3,13 @@
 #include <iostream>
 using namespace std;
 
-Item::Item(int id, string name, int quantity, double price)
+Item::Item(int id, string name, int qty, double price, int threshold)
 {
     this->id = id;
     this->name = name;
-    this->quantity = quantity;
+    this->qty = qty;
     this->price = price;
+    this->threshold = threshold;
 }
 
 int Item::getID() const
@@ -23,7 +24,7 @@ string Item::getName() const
 
 int Item::getQuantity() const
 {
-    return quantity;
+    return qty;
 }
 
 double Item::getPrice() const
@@ -31,14 +32,19 @@ double Item::getPrice() const
     return price;
 }
 
+int Item::getThreshold() const
+{
+    return threshold;
+}
+
 void Item::setName(string name)
 {
     this->name = name;
 }
 
-void Item::setQuantity(int quantity)
+void Item::setQuantity(int qty)
 {
-    this->quantity = quantity;
+    this->qty = qty;
 }
 
 void Item::setPrice(double price)
@@ -48,8 +54,9 @@ void Item::setPrice(double price)
 
 void Item::display() const
 {
-    cout << "ID: " << id << endl;
-    cout << "Name:" << name << endl;
-    cout << "Quantity: " << quantity << endl;
-    cout << "Price: " << price << endl;
+    cout << "ID: " << id
+         << " | Name: " << name
+         << " | Quantity: " << qty
+         << " | Price: " << price
+         << " | Threshold: " << threshold << endl;
 }
