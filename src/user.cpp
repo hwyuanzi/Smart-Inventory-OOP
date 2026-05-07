@@ -1,12 +1,8 @@
 #include "user.h"
-#include <string>
 
-User::User(string name)
-{
-    this->username = username;
-}
+User::User(const std::string &username) : username(username) {}
 
-string User::getUsername() const
+const std::string &User::getUsername() const
 {
     return username;
 }

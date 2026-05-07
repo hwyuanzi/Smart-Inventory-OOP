@@ -1,17 +1,16 @@
+#pragma once
+
 #include <string>
-using namespace std;
 
 class User
 {
-    // protected attributes
 protected:
-    string username;
+    std::string username;
 
-    // constructor
 public:
-    User(string username);
-    virtual void menu() = 0;
+    explicit User(const std::string &username);
+    virtual ~User() = default;
+    virtual void menu() const = 0;
 
-    // getter method
-    string getUsername() const;
+    const std::string &getUsername() const;
 };

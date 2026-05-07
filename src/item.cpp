@@ -1,22 +1,17 @@
 #include "item.h"
-#include <string>
-#include <iostream>
-using namespace std;
 
-Item::Item(int id, string name, int quantity, double price)
-{
-    this->id = id;
-    this->name = name;
-    this->quantity = quantity;
-    this->price = price;
-}
+#include <iostream>
+#include <iomanip>
+
+Item::Item(int id, const std::string &name, int quantity, double price, int stockThreshold)
+    : id(id), name(name), quantity(quantity), price(price), stockThreshold(stockThreshold) {}
 
 int Item::getID() const
 {
     return id;
 }
 
-string Item::getName() const
+const std::string &Item::getName() const
 {
     return name;
 }
@@ -31,7 +26,12 @@ double Item::getPrice() const
     return price;
 }
 
-void Item::setName(string name)
+int Item::getStockThreshold() const
+{
+    return stockThreshold;
+}
+
+void Item::setName(const std::string &name)
 {
     this->name = name;
 }
@@ -46,10 +46,21 @@ void Item::setPrice(double price)
     this->price = price;
 }
 
+void Item::setStockThreshold(int stockThreshold)
+{
+    this->stockThreshold = stockThreshold;
+}
+
+bool Item::isLowStock() const
+{
+    return quantity <= stockThreshold;
+}
+
 void Item::display() const
 {
-    cout << "ID: " << id << endl;
-    cout << "Name:" << name << endl;
-    cout << "Quantity: " << quantity << endl;
-    cout << "Price: " << price << endl;
+    std::cout << "ID: " << id << '\n';
+    std::cout << "Name: " << name << '\n';
+    std::cout << "Quantity: " << quantity << '\n';
+    std::cout << "Price: $" << std::fixed << std::setprecision(2) << price << '\n';
+    std::cout << "Threshold: " << stockThreshold << '\n';
 }
