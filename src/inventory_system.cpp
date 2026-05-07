@@ -7,7 +7,7 @@
 using namespace std;
 
 InventorySystem::InventorySystem()
-    : currentUser(nullptr), nextItemID(1001), nextEmployeeId(101), nextManagerId(101)
+    : currentUser(nullptr), nextItemID(1001)
 {
     users.push_back(new Employee("employee", "emp123", "E-100"));
     users.push_back(new Manager("manager", "admin123", "M-100"));
@@ -83,28 +83,6 @@ string InventorySystem::generateItemId()
     return "I" + to_string(nextItemID++);
 }
 
-string InventorySystem::generateEmployeeId()
-{
-    return "E-" + to_string(nextEmployeeId++);
-}
-
-string InventorySystem::generateManagerId()
-{
-    return "M-" + to_string(nextManagerId++);
-}
-
-bool InventorySystem::usernameExists(const string &username) const
-{
-    for (const User *user : users)
-    {
-        if (user->getUsername() == username)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
 void InventorySystem::initializeData()
 {
     inventory.addItem(Item(generateItemId(), "Apple", 20, 0.99, 10, "Produce"));
@@ -131,46 +109,6 @@ User *InventorySystem::login()
         }
     }
     return nullptr;
-}
-
-void InventorySystem::signup()
-{
-    cout << "\nSign up as:\n";
-    cout << "1. Employee\n";
-    cout << "2. Manager\n";
-    const int roleChoice = readInt("Select role: ", 1, 2);
-
-    const string username = readLine("Choose username: ");
-    if (username.empty())
-    {
-        cout << "Username cannot be empty.\n";
-        return;
-    }
-    if (usernameExists(username))
-    {
-        cout << "Username already exists.\n";
-        return;
-    }
-
-    const string password = readLine("Choose password: ");
-    if (password.empty())
-    {
-        cout << "Password cannot be empty.\n";
-        return;
-    }
-
-    if (roleChoice == 1)
-    {
-        const string employeeId = generateEmployeeId();
-        users.push_back(new Employee(username, password, employeeId));
-        cout << "Employee account created. Employee ID: " << employeeId << '\n';
-    }
-    else
-    {
-        const string managerId = generateManagerId();
-        users.push_back(new Manager(username, password, managerId));
-        cout << "Manager account created. Manager ID: " << managerId << '\n';
-    }
 }
 
 void InventorySystem::handleEmployeeMenu(Employee *employee)
@@ -327,19 +265,12 @@ void InventorySystem::run()
     {
         cout << "\n=== SmartInventory ===\n";
         cout << "1. Login\n";
-        cout << "2. Sign Up\n";
         cout << "0. Exit\n";
-        const int choice = readInt("Select: ", 0, 2);
+        const int choice = readInt("Select: ", 0, 1);
         if (choice == 0)
         {
             cout << "Thank you for using SmartInventory. Program exiting...\n";
             return;
-        }
-
-        if (choice == 2)
-        {
-            signup();
-            continue;
         }
 
         currentUser = login();

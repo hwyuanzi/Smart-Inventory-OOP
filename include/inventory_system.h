@@ -17,20 +17,14 @@ private:
     vector<Transaction> transactions;
     User *currentUser;
     int nextItemID;
-    int nextEmployeeId;
-    int nextManagerId;
 
     User *login();
-    void signup();
     void handleEmployeeMenu(Employee *employee);
     void handleManagerMenu(Manager *manager);
 
     string generateItemId();
-    string generateEmployeeId();
-    string generateManagerId();
 
     void initializeData();
-    bool usernameExists(const string &username) const;
 
     int readInt(const string &prompt, int minValue, int maxValue);
     double readDouble(const string &prompt, double minValue);

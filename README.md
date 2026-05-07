@@ -122,11 +122,11 @@ This matches the design that a manager can perform all employee operations plus 
 ### 3.3 Control Objects (Business Logic Layer)
 
 * **`Inventory`**: Stores and manages `Item` objects and pending `RestockRequest` objects. It supports item search, item updates, low-stock checks, restock request creation, and request clearing.
-* **`InventorySystem`**: Acts as the main controller. It coordinates sign-up, login, role-based menus, inventory actions, transactions, and user input validation.
+* **`InventorySystem`**: Acts as the main controller. It coordinates login, role-based menus, inventory actions, transactions, and user input validation.
 
 ### 3.4 Boundary Object (Presentation Layer)
 
-* **CLI Menu Interface**: Presents numbered options for login, sign-up, employee operations, and manager operations.
+* **CLI Menu Interface**: Presents numbered options for login, employee operations, and manager operations.
 
 This design supports the rubric's object-oriented requirements: classes are separated by responsibility, user roles use inheritance and polymorphism, and object messages in the code correspond to the UML sequence diagrams.
 
@@ -191,8 +191,6 @@ username: manager
 password: admin123
 ```
 
-The system also supports in-session sign-up for employee and manager accounts. Newly signed-up accounts are available during the current program run.
-
 ### 4.5 How to Use the Program
 
 When the program starts, the main menu appears:
@@ -200,22 +198,10 @@ When the program starts, the main menu appears:
 ```text
 === SmartInventory ===
 1. Login
-2. Sign Up
 0. Exit
 ```
 
-Choose `1` to log in with an existing account, choose `2` to create a new account, or choose `0` to exit.
-
-#### Sign Up
-
-Choose `2. Sign Up`, then select the role:
-
-```text
-1. Employee
-2. Manager
-```
-
-After choosing the role, enter a username and password. The system creates an employee ID such as `E-101` or a manager ID such as `M-101`. Usernames must be unique and cannot be empty. Passwords cannot be empty.
+Choose `1` to log in with an existing account, or choose `0` to exit.
 
 #### Login
 
@@ -289,7 +275,7 @@ The test script checks that:
 
 * the project compiles with `-Wall -Wextra -pedantic`;
 * employee login and inventory viewing work;
-* employee and manager sign-up/login work;
+* employee and manager login work;
 * manager authentication routes users to the manager menu;
 * manager accounts inherit employee operations such as search and transaction recording;
 * low-stock sales create restock requests;
