@@ -1,12 +1,11 @@
 #pragma once
 
-#include "inventory.h"
-#include "user.h"
+#include "employee.h"
 
 #include <string>
 #include <vector>
 
-class Manager : public User
+class Manager : public Employee
 {
 private:
     std::string managerId;

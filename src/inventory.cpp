@@ -106,6 +106,13 @@ std::vector<Item *> Inventory::getLowStockItems()
 
 void Inventory::addRestockRequest(const RestockRequest &request)
 {
+    for (const RestockRequest &existingRequest : restockRequests)
+    {
+        if (existingRequest.getItemId() == request.getItemId())
+        {
+            return;
+        }
+    }
     restockRequests.push_back(request);
 }
 

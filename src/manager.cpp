@@ -3,7 +3,10 @@
 #include <iostream>
 
 Manager::Manager(const std::string &username, const std::string &password, const std::string &managerId)
-    : User(username, password, "manager"), managerId(managerId) {}
+    : Employee(username, password, managerId), managerId(managerId)
+{
+    role = "manager";
+}
 
 const std::string &Manager::getManagerId() const
 {
@@ -87,13 +90,15 @@ bool Manager::fulfillRestockRequest(Inventory &inventory, const std::string &ite
 void Manager::displayMenu() const
 {
     std::cout << "\n=== " << getRoleDisplay() << " Menu ===\n";
-    std::cout << "1. Add Item\n";
-    std::cout << "2. Delete Item\n";
-    std::cout << "3. Check Low Stock Alerts\n";
-    std::cout << "4. Update Item Details\n";
-    std::cout << "5. Update Stock Quantity\n";
-    std::cout << "6. Review Restock Requests\n";
-    std::cout << "7. View Full Inventory\n";
+    std::cout << "1. View Full Inventory\n";
+    std::cout << "2. Search Item\n";
+    std::cout << "3. Record Sale / Make Transaction\n";
+    std::cout << "4. Add Item\n";
+    std::cout << "5. Delete Item\n";
+    std::cout << "6. Check Low Stock Alerts\n";
+    std::cout << "7. Update Item Details\n";
+    std::cout << "8. Update Stock Quantity\n";
+    std::cout << "9. Review Restock Requests\n";
     std::cout << "0. Logout\n";
 }
 

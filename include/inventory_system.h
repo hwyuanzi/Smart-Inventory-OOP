@@ -16,12 +16,18 @@ private:
     std::vector<Transaction> transactions;
     User *currentUser;
     int nextItemId;
+    int nextEmployeeId;
+    int nextManagerId;
 
     User *login();
+    void signup();
     void handleEmployeeMenu(Employee *employee);
     void handleManagerMenu(Manager *manager);
     std::string generateItemId();
+    std::string generateEmployeeId();
+    std::string generateManagerId();
     void initializeData();
+    bool usernameExists(const std::string &username) const;
     int readInt(const std::string &prompt, int minValue, int maxValue);
     double readDouble(const std::string &prompt, double minValue);
     std::string readLine(const std::string &prompt);
