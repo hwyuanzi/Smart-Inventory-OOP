@@ -3,18 +3,22 @@
 #include <iostream>
 #include <limits>
 
-InventorySystem::InventorySystem()
-    : employee("employee"), manager("admin", "admin123") {}
-
-void InventorySystem::seedDemoData()
+InventorySystem::InventorySystem() : currentUser(nullptr), nextItemId(1001)
 {
-    inventory.addItem(Item(1001, "Apple", 20, 0.99, 10));
-    inventory.addItem(Item(1002, "Banana", 8, 0.49, 10));
-    inventory.addItem(Item(1003, "Milk", 15, 2.79, 6));
-    inventory.addItem(Item(1004, "Bread", 5, 3.50, 5));
+    users.push_back(new Employee("employee", "emp123", "E-100"));
+    users.push_back(new Manager("manager", "admin123", "M-100"));
+    initializeData();
 }
 
-int InventorySystem::readInt(const std::string &prompt, int minValue, int maxValue) const
+InventorySystem::~InventorySystem()
+{
+    for (User *user : users)
+    {
+        delete user;
+    }
+}
+
+int InventorySystem::readInt(const std::string &prompt, int minValue, int maxValue)
 {
     int value = 0;
     while (true)
@@ -25,13 +29,13 @@ int InventorySystem::readInt(const std::string &prompt, int minValue, int maxVal
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
         }
-        std::cout << "Invalid input. Please try again.\n";
+        std::cout << "Invalid integer input.\n";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 
-double InventorySystem::readDouble(const std::string &prompt, double minValue) const
+double InventorySystem::readDouble(const std::string &prompt, double minValue)
 {
     double value = 0.0;
     while (true)
@@ -42,214 +46,210 @@ double InventorySystem::readDouble(const std::string &prompt, double minValue) c
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             return value;
         }
-        std::cout << "Invalid input. Please try again.\n";
+        std::cout << "Invalid numeric input.\n";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
 
-std::string InventorySystem::readLine(const std::string &prompt) const
+std::string InventorySystem::readLine(const std::string &prompt)
 {
-    std::string value;
     std::cout << prompt;
+    std::string value;
     std::getline(std::cin, value);
     return value;
 }
 
-void InventorySystem::showLowStockAlertForItem(int id) const
+std::string InventorySystem::generateItemId()
 {
-    const Item *item = inventory.findItemById(id);
-    if (item != nullptr && item->isLowStock())
-    {
-        std::cout << "Low-stock alert: " << item->getName()
-                  << " now has quantity " << item->getQuantity()
-                  << " (threshold: " << item->getStockThreshold() << ").\n";
-    }
+    return "I" + std::to_string(nextItemId++);
 }
 
-void InventorySystem::employeeSession()
+void InventorySystem::initializeData()
+{
+    inventory.addItem(Item(generateItemId(), "Apple", 20, 0.99, 10, "Produce"));
+    inventory.addItem(Item(generateItemId(), "Banana", 8, 0.49, 10, "Produce"));
+    inventory.addItem(Item(generateItemId(), "Milk", 15, 2.79, 6, "Dairy"));
+    inventory.addItem(Item(generateItemId(), "Bread", 5, 3.50, 5, "Bakery"));
+}
+
+User *InventorySystem::login()
+{
+    const std::string username = readLine("Username: ");
+    const std::string password = readLine("Password: ");
+    for (User *user : users)
+    {
+        if (user->getUsername() == username && user->authenticate(password))
+        {
+            return user;
+        }
+    }
+    return nullptr;
+}
+
+void InventorySystem::handleEmployeeMenu(Employee *employee)
 {
     while (true)
     {
-        employee.menu();
-        const int choice = readInt("Select an option: ", 0, 3);
-
+        employee->displayMenu();
+        const int choice = readInt("Select option: ", 0, 3);
         if (choice == 0)
         {
-            return;
+            break;
         }
 
         if (choice == 1)
         {
-            inventory.displayAll();
+            employee->viewInventory(inventory);
         }
         else if (choice == 2)
         {
-            const std::string keyword = readLine("Enter name keyword: ");
-            const std::vector<const Item *> matches = inventory.searchItemsByName(keyword);
+            const std::string query = readLine("Search keyword: ");
+            std::vector<Item *> matches = employee->searchItem(inventory, query);
             if (matches.empty())
             {
-                std::cout << "No matching items found.\n";
+                std::cout << "No item found.\n";
             }
-            else
+            for (const Item *item : matches)
             {
-                for (const Item *item : matches)
-                {
-                    std::cout << "-------------------------\n";
-                    item->display();
-                }
-                std::cout << "-------------------------\n";
+                std::cout << item->toString() << '\n';
             }
         }
         else if (choice == 3)
         {
-            const int id = readInt("Enter item ID: ", 1, 1000000);
-            const int qty = readInt("Enter quantity sold: ", 1, 1000000);
-            if (inventory.recordSale(id, qty))
-            {
-                std::cout << "Transaction recorded.\n";
-                showLowStockAlertForItem(id);
-            }
-            else
-            {
-                std::cout << "Transaction failed. Check item ID and available stock.\n";
-            }
+            const std::string itemId = readLine("Item ID: ");
+            const int qty = readInt("Quantity sold: ", 1, 1000000);
+            std::string msg;
+            employee->makeTransaction(inventory, transactions, itemId, qty, msg);
+            std::cout << msg << '\n';
         }
     }
 }
 
-void InventorySystem::managerSession()
+void InventorySystem::handleManagerMenu(Manager *manager)
 {
-    const std::string password = readLine("Enter manager password: ");
-    if (!manager.authenticate(password))
-    {
-        std::cout << "Authentication failed.\n";
-        return;
-    }
-
-    std::cout << "Authentication successful.\n";
-
     while (true)
     {
-        manager.menu();
-        const int choice = readInt("Select an option: ", 0, 7);
-
+        manager->displayMenu();
+        const int choice = readInt("Select option: ", 0, 7);
         if (choice == 0)
         {
-            return;
+            break;
         }
 
         if (choice == 1)
         {
-            const int id = readInt("Item ID: ", 1, 1000000);
             const std::string name = readLine("Name: ");
+            const std::string category = readLine("Category: ");
             const int qty = readInt("Quantity: ", 0, 1000000);
             const double price = readDouble("Price: ", 0.0);
-            const int threshold = readInt("Low-stock threshold: ", 0, 1000000);
-
-            if (inventory.addItem(Item(id, name, qty, price, threshold)))
-            {
-                std::cout << "Item added.\n";
-            }
-            else
-            {
-                std::cout << "Add failed: item ID already exists.\n";
-            }
+            const int threshold = readInt("Threshold: ", 0, 1000000);
+            manager->addItem(inventory, Item(generateItemId(), name, qty, price, threshold, category));
+            std::cout << "Item added.\n";
         }
         else if (choice == 2)
         {
-            const int id = readInt("Item ID to delete: ", 1, 1000000);
-            if (inventory.deleteItemById(id))
-            {
-                std::cout << "Item deleted.\n";
-            }
-            else
-            {
-                std::cout << "Delete failed: item not found.\n";
-            }
+            const std::string id = readLine("Item ID: ");
+            std::string msg;
+            manager->deleteItem(inventory, id, msg);
+            std::cout << msg << '\n';
         }
-        else if (choice == 3 || choice == 6)
+        else if (choice == 3)
         {
-            const std::vector<const Item *> lowStockItems = inventory.getLowStockItems();
-            if (lowStockItems.empty())
+            std::vector<Item *> lowItems = manager->checkLowStockAlerts(inventory);
+            if (lowItems.empty())
             {
                 std::cout << "No low-stock items.\n";
             }
-            else
+            for (const Item *item : lowItems)
             {
-                std::cout << "Low-stock / restock candidates:\n";
-                for (const Item *item : lowStockItems)
-                {
-                    std::cout << "-------------------------\n";
-                    item->display();
-                }
-                std::cout << "-------------------------\n";
+                std::cout << item->toString() << '\n';
             }
         }
         else if (choice == 4)
         {
-            const int id = readInt("Item ID to update: ", 1, 1000000);
-            const Item *existing = inventory.findItemById(id);
-            if (existing == nullptr)
-            {
-                std::cout << "Update failed: item not found.\n";
-                continue;
-            }
-
+            const std::string id = readLine("Item ID: ");
             const std::string name = readLine("New name: ");
+            const std::string category = readLine("New category: ");
             const double price = readDouble("New price: ", 0.0);
-            const int threshold = readInt("New low-stock threshold: ", 0, 1000000);
-            if (inventory.updateItemDetails(id, name, price, threshold))
-            {
-                std::cout << "Item details updated.\n";
-            }
+            const int threshold = readInt("New threshold: ", 0, 1000000);
+            std::string msg;
+            manager->updateItemDetails(inventory, id, name, price, threshold, category, msg);
+            std::cout << msg << '\n';
         }
         else if (choice == 5)
         {
-            const int id = readInt("Item ID to update stock: ", 1, 1000000);
+            const std::string id = readLine("Item ID: ");
             const int qty = readInt("New quantity: ", 0, 1000000);
-            if (inventory.updateStockQuantity(id, qty))
+            std::string msg;
+            manager->updateStockQuantity(inventory, id, qty, msg);
+            std::cout << msg << '\n';
+        }
+        else if (choice == 6)
+        {
+            std::vector<RestockRequest> &requests = manager->reviewRestockRequests(inventory);
+            if (requests.empty())
             {
-                std::cout << "Stock quantity updated.\n";
-                showLowStockAlertForItem(id);
+                std::cout << "No restock requests.\n";
             }
-            else
+            for (const RestockRequest &request : requests)
             {
-                std::cout << "Update failed: item not found.\n";
+                std::cout << "Request " << request.getRequestId()
+                          << " | item " << request.getItemId()
+                          << " | req qty " << request.getRequestedQuantity() << '\n';
+            }
+            const int doFulfill = readInt("Fulfill one request? (1/0): ", 0, 1);
+            if (doFulfill == 1)
+            {
+                const std::string id = readLine("Item ID to fulfill: ");
+                std::string msg;
+                manager->fulfillRestockRequest(inventory, id, msg);
+                std::cout << msg << '\n';
             }
         }
         else if (choice == 7)
         {
-            inventory.displayAll();
+            std::vector<Item> &items = inventory.getAllItems();
+            if (items.empty())
+            {
+                std::cout << "Inventory is empty.\n";
+            }
+            for (const Item &item : items)
+            {
+                std::cout << item.toString() << '\n';
+            }
         }
     }
 }
 
 void InventorySystem::run()
 {
-    seedDemoData();
-
     while (true)
     {
-        std::cout << "\n=== SmartInventory System ===\n";
-        std::cout << "1. Employee Login\n";
-        std::cout << "2. Manager Login\n";
+        std::cout << "\n=== SmartInventory ===\n";
+        std::cout << "1. Login\n";
         std::cout << "0. Exit\n";
-
-        const int role = readInt("Select role: ", 0, 2);
-        if (role == 0)
+        const int choice = readInt("Select: ", 0, 1);
+        if (choice == 0)
         {
             std::cout << "Goodbye.\n";
             return;
         }
 
-        if (role == 1)
+        currentUser = login();
+        if (currentUser == nullptr)
         {
-            employeeSession();
+            std::cout << "Authentication failed.\n";
+            continue;
+        }
+
+        if (currentUser->getRole() == "manager")
+        {
+            handleManagerMenu(dynamic_cast<Manager *>(currentUser));
         }
         else
         {
-            managerSession();
+            handleEmployeeMenu(dynamic_cast<Employee *>(currentUser));
         }
     }
 }

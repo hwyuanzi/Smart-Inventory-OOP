@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cctype>
-#include <iostream>
 
 std::string Inventory::toLower(const std::string &text)
 {
@@ -13,34 +12,32 @@ std::string Inventory::toLower(const std::string &text)
     return lower;
 }
 
-bool Inventory::addItem(const Item &item)
+Inventory::Inventory() : nextRestockId(1) {}
+
+void Inventory::addItem(const Item &item)
 {
-    if (findItemById(item.getID()) != nullptr)
-    {
-        return false;
-    }
     items.push_back(item);
-    return true;
 }
 
-bool Inventory::deleteItemById(int id)
+bool Inventory::removeItem(const std::string &itemId)
 {
-    auto it = std::remove_if(items.begin(), items.end(), [id](const Item &item) {
-        return item.getID() == id;
+    auto itemIt = std::remove_if(items.begin(), items.end(), [&itemId](const Item &item) {
+        return item.getItemId() == itemId;
     });
-    if (it == items.end())
+    if (itemIt == items.end())
     {
         return false;
     }
-    items.erase(it, items.end());
+    items.erase(itemIt, items.end());
+    clearRestockRequest(itemId);
     return true;
 }
 
-Item *Inventory::findItemById(int id)
+Item *Inventory::findItem(const std::string &itemId)
 {
     for (Item &item : items)
     {
-        if (item.getID() == id)
+        if (item.getItemId() == itemId)
         {
             return &item;
         }
@@ -48,25 +45,15 @@ Item *Inventory::findItemById(int id)
     return nullptr;
 }
 
-const Item *Inventory::findItemById(int id) const
+std::vector<Item *> Inventory::searchByName(const std::string &query)
 {
-    for (const Item &item : items)
+    std::vector<Item *> matches;
+    const std::string key = toLower(query);
+    for (Item &item : items)
     {
-        if (item.getID() == id)
-        {
-            return &item;
-        }
-    }
-    return nullptr;
-}
-
-std::vector<const Item *> Inventory::searchItemsByName(const std::string &namePart) const
-{
-    std::vector<const Item *> matches;
-    const std::string key = toLower(namePart);
-    for (const Item &item : items)
-    {
-        if (toLower(item.getName()).find(key) != std::string::npos)
+        const std::string nameKey = toLower(item.getName());
+        const std::string idKey = toLower(item.getItemId());
+        if (nameKey.find(key) != std::string::npos || idKey.find(key) != std::string::npos)
         {
             matches.push_back(&item);
         }
@@ -74,47 +61,40 @@ std::vector<const Item *> Inventory::searchItemsByName(const std::string &namePa
     return matches;
 }
 
-bool Inventory::recordSale(int id, int quantitySold)
+std::vector<Item> &Inventory::getAllItems()
 {
-    Item *item = findItemById(id);
-    if (item == nullptr || quantitySold <= 0 || quantitySold > item->getQuantity())
-    {
-        return false;
-    }
-
-    item->setQuantity(item->getQuantity() - quantitySold);
-    return true;
+    return items;
 }
 
-bool Inventory::updateItemDetails(int id, const std::string &name, double price, int threshold)
+bool Inventory::updateItem(const std::string &id, const std::string &name, double price, int threshold, const std::string &category)
 {
-    Item *item = findItemById(id);
-    if (item == nullptr || price < 0 || threshold < 0)
+    Item *item = findItem(id);
+    if (item == nullptr)
     {
         return false;
     }
-
     item->setName(name);
     item->setPrice(price);
-    item->setStockThreshold(threshold);
+    item->setThreshold(threshold);
+    item->setCategory(category);
     return true;
 }
 
-bool Inventory::updateStockQuantity(int id, int quantity)
+bool Inventory::updateStockQuantity(const std::string &id, int qty)
 {
-    Item *item = findItemById(id);
-    if (item == nullptr || quantity < 0)
+    Item *item = findItem(id);
+    if (item == nullptr || qty < 0)
     {
         return false;
     }
-    item->setQuantity(quantity);
+    item->setQuantity(qty);
     return true;
 }
 
-std::vector<const Item *> Inventory::getLowStockItems() const
+std::vector<Item *> Inventory::getLowStockItems()
 {
-    std::vector<const Item *> lowStockItems;
-    for (const Item &item : items)
+    std::vector<Item *> lowStockItems;
+    for (Item &item : items)
     {
         if (item.isLowStock())
         {
@@ -124,23 +104,30 @@ std::vector<const Item *> Inventory::getLowStockItems() const
     return lowStockItems;
 }
 
-bool Inventory::isEmpty() const
+void Inventory::addRestockRequest(const RestockRequest &request)
 {
-    return items.empty();
+    restockRequests.push_back(request);
 }
 
-void Inventory::displayAll() const
+std::vector<RestockRequest> &Inventory::getRestockRequests()
 {
-    if (items.empty())
-    {
-        std::cout << "Inventory is empty.\n";
-        return;
-    }
+    return restockRequests;
+}
 
-    for (const Item &item : items)
+bool Inventory::clearRestockRequest(const std::string &itemId)
+{
+    auto requestIt = std::remove_if(restockRequests.begin(), restockRequests.end(), [&itemId](const RestockRequest &request) {
+        return request.getItemId() == itemId;
+    });
+    if (requestIt == restockRequests.end())
     {
-        std::cout << "-------------------------\n";
-        item.display();
+        return false;
     }
-    std::cout << "-------------------------\n";
+    restockRequests.erase(requestIt, restockRequests.end());
+    return true;
+}
+
+std::string Inventory::generateRestockId()
+{
+    return "R" + std::to_string(nextRestockId++);
 }

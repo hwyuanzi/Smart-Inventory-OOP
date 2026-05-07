@@ -1,6 +1,7 @@
 #pragma once
 
 #include "item.h"
+#include "restock_request.h"
 
 #include <string>
 #include <vector>
@@ -9,19 +10,23 @@ class Inventory
 {
 private:
     std::vector<Item> items;
+    std::vector<RestockRequest> restockRequests;
+    int nextRestockId;
 
     static std::string toLower(const std::string &text);
 
 public:
-    bool addItem(const Item &item);
-    bool deleteItemById(int id);
-    Item *findItemById(int id);
-    const Item *findItemById(int id) const;
-    std::vector<const Item *> searchItemsByName(const std::string &namePart) const;
-    bool recordSale(int id, int quantitySold);
-    bool updateItemDetails(int id, const std::string &name, double price, int threshold);
-    bool updateStockQuantity(int id, int quantity);
-    std::vector<const Item *> getLowStockItems() const;
-    bool isEmpty() const;
-    void displayAll() const;
+    Inventory();
+    void addItem(const Item &item);
+    bool removeItem(const std::string &itemId);
+    Item *findItem(const std::string &itemId);
+    std::vector<Item *> searchByName(const std::string &query);
+    std::vector<Item> &getAllItems();
+    bool updateItem(const std::string &id, const std::string &name, double price, int threshold, const std::string &category);
+    bool updateStockQuantity(const std::string &id, int qty);
+    std::vector<Item *> getLowStockItems();
+    void addRestockRequest(const RestockRequest &request);
+    std::vector<RestockRequest> &getRestockRequests();
+    bool clearRestockRequest(const std::string &itemId);
+    std::string generateRestockId();
 };

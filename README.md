@@ -25,29 +25,31 @@ Our system includes two primary **Actors**: the **Inventory Manager (Admin)** an
 * **UC-03: Make Transaction / Record Sale:** The Employee User can record a sale, and the system will update the item quantity accordingly.
 
 ### Manager Operations (Admin Privilege)
-* **UC-04: Authenticate Manager Access:** The Inventory Manager logs into the system to access administrative functions.
+* **UC-04: Manager Access Authentication:** The Inventory Manager must be authenticated before manager-only operations are executed.
 * **UC-05: Add Item:** The Inventory Manager can add a new item to the inventory.
 * **UC-06: Delete Item:** The Inventory Manager can remove an item from the inventory.
 * **UC-07: Check Low Stock Alerts:** The Inventory Manager can view items that are below their stock thresholds.
-* **UC-08: Update Item Details:** The Inventory Manager can edit item information such as name, price, quantity, or stock threshold.
+* **UC-08: Update Item Details:** The Inventory Manager can edit item information such as name, price, threshold, or category.
 * **UC-09: Update Stock Quantity:** The Inventory Manager can manually adjust stock levels when needed.
-* **UC-10: Review Restock Requests:** The Inventory Manager can review items that may need to be restocked and decide on the next action.
+* **UC-10: Review Restock Requests:** The Inventory Manager can review and fulfill restock requests.
 
 ## 3. Object-Oriented Logical Architecture & UML Class Design
 Our **Class Diagram** and **Sequence Diagrams** will reflect an object-oriented design with separate responsibilities for data objects, control logic, and user interaction.
 
 ### 3.1 Entity Objects (The Data Layer)
 The data layer will store the main information used by the system.
-* **`Item`**: Represents a product in the inventory and stores attributes such as item ID, name, quantity, price, and stock threshold.
+* **`Item`**: Represents a product in the inventory and stores attributes such as item ID, name, category, quantity, price, and stock threshold.
+* **`Transaction`**: Represents a completed sale transaction (transaction ID, item reference, quantity, total price, timestamp).
+* **`RestockRequest`**: Represents a pending restock request generated when an item becomes low in stock.
 * **`User`**: Represents a system user and stores shared account information.
   * **`Manager`**: A derived class of `User` with administrative permissions.
   * **`Employee`**: A derived class of `User` with standard permissions.
 
 ### 3.2 Control Objects (The Business Logic Layer)
 The control layer manages the main system behavior.
-* **`Inventory`**: Stores and manages the collection of items in the system.
-* **`InventorySystem`**: Acts as the main controller, coordinating interactions between users and inventory data.
-* **Restock-related logic**: Handles stock threshold checking and low-stock alert generation when item quantities fall below predefined limits.
+* **`Inventory`**: Stores and manages items, low-stock checks, and restock request lifecycle.
+* **`InventorySystem`**: Acts as the main controller, coordinating login/authentication, role-based menus, inventory actions, and transaction history.
+* **Restock-related logic**: Handles request creation, review, and fulfillment when stock falls below threshold.
 
 ### 3.3 Boundary Objects (The Presentation Layer)
 The presentation layer handles user interaction through a CLI.
