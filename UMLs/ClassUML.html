@@ -49,7 +49,7 @@ BOTTOM-CENTER (x=380, w=295)
 
 RELATIONSHIPS (9 total):
 1.  User ◁── Employee       inh   Employee.top(887,250)→User.bottom(887,230)   vertical
-2.  Employee ◁── Manager    inh   Manager.top(887,450)→Employee.bottom(887,430) vertical
+2.  User ◁── Manager        inh   Manager.rightMid(1035,575)→User.rightMid(1035,125) routed
 3.  Inventory ◆─ Item       comp  diamond@Inv.top(527,412)→Item.bottom(527,392)
 4.  Inventory ◆─ RR         comp  diamond@Inv.left(380,558)→route→RR.right(315,420)
 5.  IS ◆─ Inventory         comp  diamond@IS.top(527,724)→Inv.bottom(527,704)
@@ -261,8 +261,9 @@ RELATIONSHIPS (9 total):
 <!-- 1. User ◁── Employee  (inheritance, 20px vertical gap) -->
 <line x1="887" y1="250" x2="887" y2="232" stroke="#111" stroke-width="2" marker-end="url(#inh)"/>
 
-<!-- 2. Employee ◁── Manager  (inheritance, 20px vertical gap) -->
-<line x1="887" y1="450" x2="887" y2="432" stroke="#111" stroke-width="2" marker-end="url(#inh)"/>
+<!-- 2. User ◁── Manager  (edge-midpoint to edge-midpoint, routed outside boxes) -->
+<polyline points="1035,575 1068,575 1068,125 1035,125" fill="none" stroke="#111" stroke-width="2"/>
+<line x1="1068" y1="125" x2="1035" y2="125" stroke="#111" stroke-width="2" marker-end="url(#inh)"/>
 
 <!-- 3. Inventory ◆─── Item  (composition, diamond at Inventory.top)
      Diamond center (527,412): pts top(527,404) r(533,412) b(527,420) l(521,412) -->
@@ -343,7 +344,7 @@ RELATIONSHIPS (9 total):
     <i>italic + underline</i> = pure virtual / abstract method
   </div>
 </div>
-<p class="solid-note">SOLID: SRP — each class one responsibility · OCP — User abstract, open for extension · LSP — Manager substitutes Employee ·
+<p class="solid-note">SOLID: SRP — each class one responsibility · OCP — User abstract, open for extension · LSP — Employee/Manager substitute User ·
 ISP — role-specific interfaces · DIP — InventorySystem depends on User* abstraction</p>
 </body>
 </html>

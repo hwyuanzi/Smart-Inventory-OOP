@@ -1,12 +1,19 @@
 #include "user.h"
-#include <string>
 
-User::User(string name)
-{
-    this->username = username;
-}
+User::User(const std::string &username, const std::string &password, const std::string &role)
+    : username(username), password(password), role(role) {}
 
-string User::getUsername() const
+const std::string &User::getUsername() const
 {
     return username;
+}
+
+const std::string &User::getRole() const
+{
+    return role;
+}
+
+bool User::authenticate(const std::string &pwd) const
+{
+    return pwd == password;
 }
