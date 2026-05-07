@@ -152,11 +152,7 @@ If `g++` prints a version, the environment is ready.
 
 ### 4.2 Open the Project Directory
 
-From a terminal, go to the project root:
-
-```bash
-cd "/Users/haowen/Documents/NYU/Spring_2026/Object-Oriented_Programming/Final Project/Smart-Inventory-OOP"
-```
+From a terminal, go to the project root.
 
 If the project is cloned or moved to a different location, use that local project path instead. The project root is the folder that contains `README.md`, `src/`, `include/`, and `UMLs/`.
 
