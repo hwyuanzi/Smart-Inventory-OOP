@@ -1,20 +1,17 @@
-#pragma once
-
 #include <string>
+using namespace std;
 
 class User
 {
+    // protected attributes
 protected:
-    std::string username;
-    std::string password;
-    std::string role;
+    string username;
 
+    // constructor
 public:
-    User(const std::string &username, const std::string &password, const std::string &role);
-    virtual ~User() = default;
-    const std::string &getUsername() const;
-    const std::string &getRole() const;
-    bool authenticate(const std::string &pwd) const;
-    virtual void displayMenu() const = 0;
-    virtual std::string getRoleDisplay() const = 0;
+    User(string username);
+    virtual void menu() = 0;
+
+    // getter method
+    string getUsername() const;
 };

@@ -1,33 +1,30 @@
-#pragma once
-
 #include <string>
+using namespace std;
 
 class Item
 {
+    // private attributes
 private:
-    std::string itemId;
-    std::string name;
+    int id;
+    string name;
     int quantity;
     double price;
-    int threshold;
-    std::string category;
 
 public:
-    Item(const std::string &id, const std::string &name, int qty, double price, int thresh, const std::string &category);
+    // class constructor
+    Item(int id, string name, int quantity, double price);
 
-    const std::string &getItemId() const;
-    const std::string &getName() const;
+    // getter methods
+    int getID() const;
+    string getName() const;
     int getQuantity() const;
     double getPrice() const;
-    int getThreshold() const;
-    const std::string &getCategory() const;
 
-    void setName(const std::string &name);
+    // setter methods
+    void setName(string name);
     void setQuantity(int quantity);
     void setPrice(double price);
-    void setThreshold(int threshold);
-    void setCategory(const std::string &category);
 
-    bool isLowStock() const;
-    std::string toString() const;
+    // display item details
+    void display() const;
 };

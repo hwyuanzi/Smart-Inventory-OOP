@@ -1,17 +1,22 @@
 #include "item.h"
+#include <string>
+#include <iostream>
+using namespace std;
 
-#include <iomanip>
-#include <sstream>
-
-Item::Item(const std::string &id, const std::string &name, int qty, double price, int thresh, const std::string &category)
-    : itemId(id), name(name), quantity(qty), price(price), threshold(thresh), category(category) {}
-
-const std::string &Item::getItemId() const
+Item::Item(int id, string name, int quantity, double price)
 {
-    return itemId;
+    this->id = id;
+    this->name = name;
+    this->quantity = quantity;
+    this->price = price;
 }
 
-const std::string &Item::getName() const
+int Item::getID() const
+{
+    return id;
+}
+
+string Item::getName() const
 {
     return name;
 }
@@ -26,17 +31,7 @@ double Item::getPrice() const
     return price;
 }
 
-int Item::getThreshold() const
-{
-    return threshold;
-}
-
-const std::string &Item::getCategory() const
-{
-    return category;
-}
-
-void Item::setName(const std::string &name)
+void Item::setName(string name)
 {
     this->name = name;
 }
@@ -51,28 +46,10 @@ void Item::setPrice(double price)
     this->price = price;
 }
 
-void Item::setThreshold(int threshold)
+void Item::display() const
 {
-    this->threshold = threshold;
-}
-
-void Item::setCategory(const std::string &category)
-{
-    this->category = category;
-}
-
-bool Item::isLowStock() const
-{
-    return quantity <= threshold;
-}
-
-std::string Item::toString() const
-{
-    std::ostringstream stream;
-    stream << "ID: " << itemId << " | Name: " << name
-           << " | Category: " << category
-           << " | Qty: " << quantity
-           << " | Price: $" << std::fixed << std::setprecision(2) << price
-           << " | Threshold: " << threshold;
-    return stream.str();
+    cout << "ID: " << id << endl;
+    cout << "Name:" << name << endl;
+    cout << "Quantity: " << quantity << endl;
+    cout << "Price: " << price << endl;
 }
