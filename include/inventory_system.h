@@ -7,15 +7,16 @@
 
 #include <string>
 #include <vector>
+using namespace std;
 
 class InventorySystem
 {
 private:
     Inventory inventory;
-    std::vector<User *> users;
-    std::vector<Transaction> transactions;
+    vector<User *> users;
+    vector<Transaction> transactions;
     User *currentUser;
-    int nextItemId;
+    int nextItemID;
     int nextEmployeeId;
     int nextManagerId;
 
@@ -23,14 +24,17 @@ private:
     void signup();
     void handleEmployeeMenu(Employee *employee);
     void handleManagerMenu(Manager *manager);
-    std::string generateItemId();
-    std::string generateEmployeeId();
-    std::string generateManagerId();
+
+    string generateItemId();
+    string generateEmployeeId();
+    string generateManagerId();
+
     void initializeData();
-    bool usernameExists(const std::string &username) const;
-    int readInt(const std::string &prompt, int minValue, int maxValue);
-    double readDouble(const std::string &prompt, double minValue);
-    std::string readLine(const std::string &prompt);
+    bool usernameExists(const string &username) const;
+
+    int readInt(const string &prompt, int minValue, int maxValue);
+    double readDouble(const string &prompt, double minValue);
+    string readLine(const string &prompt);
 
 public:
     InventorySystem();

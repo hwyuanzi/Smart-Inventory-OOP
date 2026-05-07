@@ -5,28 +5,35 @@
 
 #include <string>
 #include <vector>
+using namespace std;
 
 class Inventory
 {
+    /*
+     * Private Attributes
+     */
 private:
-    std::vector<Item> items;
-    std::vector<RestockRequest> restockRequests;
+    vector<Item> items;
+    vector<RestockRequest> restockRequests;
     int nextRestockId;
-
-    static std::string toLower(const std::string &text);
+    static string toLower(const string &text);
 
 public:
     Inventory();
+
+    /*
+     * Inventory Operation Methods
+     */
     void addItem(const Item &item);
-    bool removeItem(const std::string &itemId);
-    Item *findItem(const std::string &itemId);
-    std::vector<Item *> searchByName(const std::string &query);
-    std::vector<Item> &getAllItems();
-    bool updateItem(const std::string &id, const std::string &name, double price, int threshold, const std::string &category);
-    bool updateStockQuantity(const std::string &id, int qty);
-    std::vector<Item *> getLowStockItems();
+    bool removeItem(const string &itemId);
+    Item *findItem(const string &itemId);
+    vector<Item *> searchByName(const string &query);
+    vector<Item> &getAllItems();
+    bool updateItem(const string &id, const string &name, double price, int threshold, const string &category);
+    bool updateStockQuantity(const string &id, int qty);
+    vector<Item *> getLowStockItems();
     void addRestockRequest(const RestockRequest &request);
-    std::vector<RestockRequest> &getRestockRequests();
-    bool clearRestockRequest(const std::string &itemId);
-    std::string generateRestockId();
+    vector<RestockRequest> &getRestockRequests();
+    bool clearRestockRequest(const string &itemId);
+    string generateRestockId();
 };

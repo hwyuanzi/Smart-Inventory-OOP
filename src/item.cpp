@@ -2,16 +2,26 @@
 
 #include <iomanip>
 #include <sstream>
+#include <string>
+using namespace std;
 
-Item::Item(const std::string &id, const std::string &name, int qty, double price, int thresh, const std::string &category)
+/*
+ * Parameterized constructor for creating an Item object.
+ * Initializes all item attributes such as ID, name,
+ * quantity, price, stock threshold, and category.
+ */
+Item::Item(const string &id, const string &name, int qty, double price, int thresh, const string &category)
     : itemId(id), name(name), quantity(qty), price(price), threshold(thresh), category(category) {}
 
-const std::string &Item::getItemId() const
+/*
+ * Getter Methods
+ */
+const string &Item::getItemId() const
 {
     return itemId;
 }
 
-const std::string &Item::getName() const
+const string &Item::getName() const
 {
     return name;
 }
@@ -31,12 +41,16 @@ int Item::getThreshold() const
     return threshold;
 }
 
-const std::string &Item::getCategory() const
+const string &Item::getCategory() const
 {
     return category;
 }
 
-void Item::setName(const std::string &name)
+/*
+ * Setter Methods
+ */
+
+void Item::setName(const string &name)
 {
     this->name = name;
 }
@@ -56,23 +70,34 @@ void Item::setThreshold(int threshold)
     this->threshold = threshold;
 }
 
-void Item::setCategory(const std::string &category)
+void Item::setCategory(const string &category)
 {
     this->category = category;
 }
 
+/*
+ * Checks whether the item is considered low in stock.
+ * Returns true if the quantity is less than or equal
+ * to the threshold value; otherwise returns false.
+ */
 bool Item::isLowStock() const
 {
     return quantity <= threshold;
 }
 
-std::string Item::toString() const
+/*
+ * Converts the item object into a formatted string.
+ * The returned string contains all important item
+ * information including ID, name, category, quantity,
+ * price (formatted to 2 decimal places), and threshold.
+ */
+string Item::toString() const
 {
-    std::ostringstream stream;
+    ostringstream stream;
     stream << "ID: " << itemId << " | Name: " << name
            << " | Category: " << category
            << " | Qty: " << quantity
-           << " | Price: $" << std::fixed << std::setprecision(2) << price
+           << " | Price: $" << fixed << setprecision(2) << price
            << " | Threshold: " << threshold;
     return stream.str();
 }

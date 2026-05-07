@@ -1,29 +1,39 @@
 #pragma once
 
 #include <string>
+using namespace std;
 
 class RestockRequest
 {
+    /*
+     * Private Attributes
+     */
 private:
-    std::string requestId;
-    std::string itemId;
-    std::string itemName;
+    string requestId;
+    string itemId;
+    string itemName;
     int currentQuantity;
     int requestedQuantity;
-    std::string timestamp;
+    string timestamp;
 
 public:
-    RestockRequest(const std::string &requestId,
-                   const std::string &itemId,
-                   const std::string &itemName,
+    /*
+     * Public Constructor
+     */
+    RestockRequest(const string &requestId,
+                   const string &itemId,
+                   const string &itemName,
                    int currentQuantity,
                    int requestedQuantity,
-                   const std::string &timestamp);
+                   const string &timestamp);
 
-    const std::string &getRequestId() const;
-    const std::string &getItemId() const;
-    const std::string &getItemName() const;
+    /*
+     * Getter Methods
+     */
+    const string &getRequestId() const;
+    const string &getItemId() const;
+    const string &getItemName() const;
     int getCurrentQuantity() const;
     int getRequestedQuantity() const;
-    const std::string &getTimestamp() const;
+    const string &getTimestamp() const;
 };
