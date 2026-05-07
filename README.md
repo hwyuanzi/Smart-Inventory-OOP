@@ -4,7 +4,7 @@
 [![Language](https://img.shields.io/badge/C%2B%2B-17-blue)](#build-and-run)
 
 **Object-Oriented Programming**  
-**Institution:** NYU Courant Institute of Mathematical Sciences
+**Institution:** NYU Courant Institute School of Mathematics, Computing, and Data Science
 
 ## Team Members
 
@@ -27,6 +27,49 @@ The system supports two user roles:
 
 The system also includes a low-stock/restocking feature. When a sale causes an item's quantity to fall at or below its threshold, the system automatically creates a pending `RestockRequest`. Managers can later review and fulfill those requests.
 
+## Directory Structure
+
+```text
+Smart-Inventory-OOP/
+|-- README.md
+|-- LICENSE
+|-- smart_inventory
+|-- include/
+|   |-- employee.h
+|   |-- inventory.h
+|   |-- inventory_system.h
+|   |-- item.h
+|   |-- manager.h
+|   |-- restock_request.h
+|   |-- transaction.h
+|   `-- user.h
+|-- src/
+|   |-- employee.cpp
+|   |-- inventory.cpp
+|   |-- inventory_system.cpp
+|   |-- item.cpp
+|   |-- main.cpp
+|   |-- manager.cpp
+|   |-- restock_request.cpp
+|   |-- transaction.cpp
+|   `-- user.cpp
+|-- tests/
+|   `-- cli_regression.sh
+`-- UMLs/
+    |-- ClassUML.html
+    |-- SequenceUML.html
+    `-- UseCaseUML.html
+```
+
+Directory and file roles:
+
+* **`include/`** contains class declarations and public interfaces.
+* **`src/`** contains class implementations and the `main.cpp` program entry point.
+* **`tests/`** contains the automated CLI regression test script.
+* **`UMLs/`** contains source files for the class, sequence, and use case UML diagrams.
+* **`smart_inventory`** is the compiled executable generated from the C++ source files.
+* **`README.md`** explains the project scope, use cases, architecture, setup, running instructions, and testing.
+
 ## 2. Use Case Analysis & Actor Interactions
 
 Our system includes two primary **Actors**: the **Inventory Manager (Admin)** and the **Employee User (Standard)**.
@@ -39,12 +82,12 @@ Our system includes two primary **Actors**: the **Inventory Manager (Admin)** an
 
 ### Manager Operations (Admin Privilege)
 
-* **UC-05: Add Item:** The Inventory Manager can add a new item to the inventory.
-* **UC-06: Delete Item:** The Inventory Manager can remove an item from the inventory.
+* **UC-04: Add Item:** The Inventory Manager can add a new item to the inventory.
+* **UC-05: Delete Item:** The Inventory Manager can remove an item from the inventory.
+* **UC-06: Update Item Details:** The Inventory Manager can edit item information such as name, price, threshold, or category.
 * **UC-07: Check Low Stock Alerts:** The Inventory Manager can view items that are below their stock thresholds.
-* **UC-08: Update Item Details:** The Inventory Manager can edit item information such as name, price, threshold, or category.
-* **UC-09: Update Stock Quantity:** The Inventory Manager can manually adjust stock levels when needed.
-* **UC-10: Review Restock Requests:** The Inventory Manager can review and fulfill restock requests.
+* **UC-08: Update Stock Quantity:** The Inventory Manager can manually adjust stock levels when needed.
+* **UC-09: Review Restock Requests:** The Inventory Manager can review and fulfill restock requests.
 
 Manager access authentication is implemented by the login flow, but it is treated as a security precondition rather than a separate use case. Before manager-only operations can run, the user must choose the Manager role and authenticate with a manager account.
 
@@ -89,19 +132,56 @@ This design supports the rubric's object-oriented requirements: classes are sepa
 
 ## 4. Build and Run
 
-Compile from the project root:
+### 4.1 Environment Setup
+
+This project only requires a C++17 compiler and a terminal.
+
+On macOS, install Apple's command line developer tools if a compiler is not already available:
+
+```bash
+xcode-select --install
+```
+
+Check that the compiler is available:
+
+```bash
+g++ --version
+```
+
+If `g++` prints a version, the environment is ready.
+
+### 4.2 Open the Project Directory
+
+From a terminal, go to the project root:
+
+```bash
+cd "/Users/haowen/Documents/NYU/Spring_2026/Object-Oriented_Programming/Final Project/Smart-Inventory-OOP"
+```
+
+If the project is cloned or moved to a different location, use that local project path instead. The project root is the folder that contains `README.md`, `src/`, `include/`, and `UMLs/`.
+
+### 4.3 Compile the Program
+
+Compile all source files from the project root:
 
 ```bash
 g++ -std=c++17 -Wall -Wextra -pedantic -Iinclude src/*.cpp -o smart_inventory
 ```
 
-Run the program:
+This command:
+
+* uses the C++17 standard;
+* includes header files from the `include/` directory;
+* compiles every `.cpp` file in `src/`;
+* creates an executable file named `smart_inventory`.
+
+### 4.4 Run the Program
 
 ```bash
 ./smart_inventory
 ```
 
-The repository also includes a prebuilt `smart_inventory` executable for macOS arm64, but recompiling is recommended after source changes.
+The repository may include a prebuilt `smart_inventory` executable for macOS arm64, but recompiling is recommended after source changes. The executable file is not source code; it is the compiled program generated by the build command.
 
 ### Default Accounts
 
@@ -116,6 +196,90 @@ password: admin123
 ```
 
 The system also supports in-session sign-up for employee and manager accounts. Newly signed-up accounts are available during the current program run.
+
+### 4.5 How to Use the Program
+
+When the program starts, the main menu appears:
+
+```text
+=== SmartInventory ===
+1. Login
+2. Sign Up
+0. Exit
+```
+
+Choose `1` to log in with an existing account, choose `2` to create a new account, or choose `0` to exit.
+
+#### Sign Up
+
+Choose `2. Sign Up`, then select the role:
+
+```text
+1. Employee
+2. Manager
+```
+
+After choosing the role, enter a username and password. The system creates an employee ID such as `E-101` or a manager ID such as `M-101`. Usernames must be unique and cannot be empty. Passwords cannot be empty.
+
+#### Login
+
+Choose `1. Login`, then select the role:
+
+```text
+1. Employee
+2. Manager
+```
+
+Then enter the username and password. The role selection is part of authentication: an employee account cannot log in as a manager, and a manager account must be authenticated before manager-only operations are available.
+
+#### Employee Menu
+
+After logging in as an employee, the menu is:
+
+```text
+=== Employee Menu ===
+1. View Full Inventory
+2. Search Item
+3. Record Sale / Make Transaction
+0. Logout
+```
+
+Employee workflow examples:
+
+* Choose `1` to display all inventory items.
+* Choose `2`, then enter a name or item ID such as `Apple` or `I1001` to search.
+* Choose `3`, then enter an item ID and quantity sold. The system deducts the sold quantity from inventory and records the transaction.
+
+#### Manager Menu
+
+After logging in as a manager, the menu is:
+
+```text
+=== Manager Menu ===
+1. View Full Inventory
+2. Search Item
+3. Record Sale / Make Transaction
+4. Add Item
+5. Delete Item
+6. Check Low Stock Alerts
+7. Update Item Details
+8. Update Stock Quantity
+9. Review Restock Requests
+0. Logout
+```
+
+Manager workflow examples:
+
+* Choose `4` to add a new item by entering its name, category, quantity, price, and threshold.
+* Choose `5` to delete an item by item ID.
+* Choose `6` to list all items whose quantity is at or below the threshold.
+* Choose `7` to update an item's name, category, price, and threshold.
+* Choose `8` to manually set an item's stock quantity.
+* Choose `9` to view pending restock requests. If requests exist, the manager can fulfill one by entering the item ID.
+
+#### Low-Stock and Restock Flow
+
+When a transaction causes an item's quantity to become less than or equal to its threshold, the system automatically creates a pending restock request. The manager can later use `9. Review Restock Requests` to fulfill that request. When fulfilled, the system increases the item's quantity and clears the pending request.
 
 ## 5. Testing
 
