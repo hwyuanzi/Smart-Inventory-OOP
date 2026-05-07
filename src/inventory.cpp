@@ -2,28 +2,48 @@
 
 #include <algorithm>
 #include <cctype>
+#include <string>
+using namespace std;
 
-std::string Inventory::toLower(const std::string &text)
+/*
+ * Converts all characters in a string to lowercase.
+ * Used to make searching case-insensitive so that
+ * item names and IDs can be matched more easily.
+ */
+string Inventory::toLower(const std::string &text)
 {
-    std::string lower = text;
-    std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char ch) {
-        return static_cast<char>(std::tolower(ch));
-    });
+    string lower = text;
+    transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char ch)
+              { return static_cast<char>(tolower(ch)); });
     return lower;
 }
 
+/*
+ * Default constructor for the Inventory class.
+ * Initializes the restock request ID counter.
+ */
 Inventory::Inventory() : nextRestockId(1) {}
 
+/*
+ * Adds a new item object to the inventory list.
+ */
 void Inventory::addItem(const Item &item)
 {
     items.push_back(item);
 }
 
-bool Inventory::removeItem(const std::string &itemId)
+/*
+ * Removes an item from the inventory using its ID.
+ * Also removes any associated restock request
+ * linked to the same item.
+ *
+ * Returns true if the item was found and removed;
+ * otherwise returns false.
+ */
+bool Inventory::removeItem(const string &itemId)
 {
-    auto itemIt = std::remove_if(items.begin(), items.end(), [&itemId](const Item &item) {
-        return item.getItemId() == itemId;
-    });
+    auto itemIt = remove_if(items.begin(), items.end(), [&itemId](const Item &item)
+                            { return item.getItemId() == itemId; });
     if (itemIt == items.end())
     {
         return false;
@@ -33,7 +53,12 @@ bool Inventory::removeItem(const std::string &itemId)
     return true;
 }
 
-Item *Inventory::findItem(const std::string &itemId)
+/*
+ * Searches for an item by its ID.
+ * Returns a pointer to the matching item if found;
+ * otherwise returns nullptr.
+ */
+Item *Inventory::findItem(const string &itemId)
 {
     for (Item &item : items)
     {
@@ -45,15 +70,23 @@ Item *Inventory::findItem(const std::string &itemId)
     return nullptr;
 }
 
-std::vector<Item *> Inventory::searchByName(const std::string &query)
+/*
+ * Searches the inventory for items whose name
+ * or ID contains the given query string.
+ * The search is case-insensitive.
+ *
+ * Returns a vector containing pointers to
+ * all matching items.
+ */
+vector<Item *> Inventory::searchByName(const string &query)
 {
-    std::vector<Item *> matches;
-    const std::string key = toLower(query);
+    vector<Item *> matches;
+    const string key = toLower(query);
     for (Item &item : items)
     {
-        const std::string nameKey = toLower(item.getName());
-        const std::string idKey = toLower(item.getItemId());
-        if (nameKey.find(key) != std::string::npos || idKey.find(key) != std::string::npos)
+        const string nameKey = toLower(item.getName());
+        const string idKey = toLower(item.getItemId());
+        if (nameKey.find(key) != string::npos || idKey.find(key) != string::npos)
         {
             matches.push_back(&item);
         }
@@ -61,12 +94,24 @@ std::vector<Item *> Inventory::searchByName(const std::string &query)
     return matches;
 }
 
-std::vector<Item> &Inventory::getAllItems()
+/*
+ * Returns a reference to the vector
+ * containing all inventory items.
+ */
+vector<Item> &Inventory::getAllItems()
 {
     return items;
 }
 
-bool Inventory::updateItem(const std::string &id, const std::string &name, double price, int threshold, const std::string &category)
+/*
+ * Updates the main information of an item,
+ * including its name, price, threshold,
+ * and category.
+ *
+ * Returns true if the item exists and was updated;
+ * otherwise returns false.
+ */
+bool Inventory::updateItem(const string &id, const string &name, double price, int threshold, const string &category)
 {
     Item *item = findItem(id);
     if (item == nullptr)
@@ -80,7 +125,14 @@ bool Inventory::updateItem(const std::string &id, const std::string &name, doubl
     return true;
 }
 
-bool Inventory::updateStockQuantity(const std::string &id, int qty)
+/*
+ * Updates the stock quantity of a specific item.
+ * Negative quantities are not allowed.
+ *
+ * Returns true if the update succeeds;
+ * otherwise returns false.
+ */
+bool Inventory::updateStockQuantity(const string &id, int qty)
 {
     Item *item = findItem(id);
     if (item == nullptr || qty < 0)
@@ -91,9 +143,16 @@ bool Inventory::updateStockQuantity(const std::string &id, int qty)
     return true;
 }
 
-std::vector<Item *> Inventory::getLowStockItems()
+/*
+ * Retrieves all items that are currently
+ * considered low in stock.
+ *
+ * Returns a vector containing pointers
+ * to low-stock items.
+ */
+vector<Item *> Inventory::getLowStockItems()
 {
-    std::vector<Item *> lowStockItems;
+    vector<Item *> lowStockItems;
     for (Item &item : items)
     {
         if (item.isLowStock())
@@ -104,6 +163,11 @@ std::vector<Item *> Inventory::getLowStockItems()
     return lowStockItems;
 }
 
+/*
+ * Adds a new restock request to the system.
+ * Prevents duplicate requests for the same item
+ * by checking existing request entries first.
+ */
 void Inventory::addRestockRequest(const RestockRequest &request)
 {
     for (const RestockRequest &existingRequest : restockRequests)
@@ -116,16 +180,26 @@ void Inventory::addRestockRequest(const RestockRequest &request)
     restockRequests.push_back(request);
 }
 
-std::vector<RestockRequest> &Inventory::getRestockRequests()
+/*
+ * Returns a reference to the vector
+ * containing all restock requests.
+ */
+vector<RestockRequest> &Inventory::getRestockRequests()
 {
     return restockRequests;
 }
 
+/*
+ * Removes a restock request associated
+ * with a specific item ID.
+ *
+ * Returns true if a request was found and removed;
+ * otherwise returns false.
+ */
 bool Inventory::clearRestockRequest(const std::string &itemId)
 {
-    auto requestIt = std::remove_if(restockRequests.begin(), restockRequests.end(), [&itemId](const RestockRequest &request) {
-        return request.getItemId() == itemId;
-    });
+    auto requestIt = remove_if(restockRequests.begin(), restockRequests.end(), [&itemId](const RestockRequest &request)
+                               { return request.getItemId() == itemId; });
     if (requestIt == restockRequests.end())
     {
         return false;
@@ -134,7 +208,12 @@ bool Inventory::clearRestockRequest(const std::string &itemId)
     return true;
 }
 
-std::string Inventory::generateRestockId()
+/*
+ * Generates a unique restock request ID.
+ * IDs are created sequentially in the format:
+ * R1, R2, R3, ...
+ */
+string Inventory::generateRestockId()
 {
-    return "R" + std::to_string(nextRestockId++);
+    return "R" + to_string(nextRestockId++);
 }

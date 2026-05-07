@@ -1,29 +1,39 @@
 #pragma once
 
 #include <string>
+using namespace std;
 
 class Transaction
 {
+    /*
+     * Private Attributes
+     */
 private:
-    std::string transactionId;
-    std::string itemId;
-    std::string itemName;
+    string transactionId;
+    string itemId;
+    string itemName;
     int quantity;
     double totalPrice;
-    std::string timestamp;
+    string timestamp;
 
+    /*
+     * Public Constructor
+     */
 public:
-    Transaction(const std::string &transactionId,
-                const std::string &itemId,
-                const std::string &itemName,
+    Transaction(const string &transactionId,
+                const string &itemId,
+                const string &itemName,
                 int quantity,
                 double totalPrice,
-                const std::string &timestamp);
+                const string &timestamp);
 
-    const std::string &getTransactionId() const;
-    const std::string &getItemId() const;
-    const std::string &getItemName() const;
+    /*
+     * Getter Methods
+     */
+    const string &getTransactionId() const;
+    const string &getItemId() const;
+    const string &getItemName() const;
     int getQuantity() const;
     double getTotalPrice() const;
-    const std::string &getTimestamp() const;
+    const string &getTimestamp() const;
 };

@@ -8,15 +8,29 @@
 
 class Employee : public User
 {
+    /*
+     * Protected Attribute
+     */
 protected:
-    std::string employeeId;
+    string employeeId;
 
 public:
-    Employee(const std::string &username, const std::string &password, const std::string &employeeId);
-    const std::string &getEmployeeId() const;
+    /*
+     * Public Constructor
+     */
+    Employee(const string &username, const string &password, const string &employeeId);
+
+    /*
+     * Employee Menu Operation Methods
+     */
     void viewInventory(Inventory &inventory) const;
-    std::vector<Item *> searchItem(Inventory &inventory, const std::string &query) const;
-    bool makeTransaction(Inventory &inventory, std::vector<Transaction> &transactions, const std::string &id, int qty, std::string &msg) const;
+    vector<Item *> searchItem(Inventory &inventory, const string &query) const;
+    bool makeTransaction(Inventory &inventory, vector<Transaction> &transactions, const string &id, int qty, string &msg) const;
     void displayMenu() const override;
-    std::string getRoleDisplay() const override;
+
+    /*
+     * Getter Methods
+     */
+    const string &getEmployeeId() const;
+    string getRoleDisplay() const override;
 };

@@ -1,11 +1,18 @@
 #include "restock_request.h"
+#include <string>
+using namespace std;
 
-RestockRequest::RestockRequest(const std::string &requestId,
-                               const std::string &itemId,
-                               const std::string &itemName,
+/*
+ * Parameterized constructor for creating a RestockRequest object.
+ * Initializes all request details including request ID,
+ * item information, stock quantities, and timestamp.
+ */
+RestockRequest::RestockRequest(const string &requestId,
+                               const string &itemId,
+                               const string &itemName,
                                int currentQuantity,
                                int requestedQuantity,
-                               const std::string &timestamp)
+                               const string &timestamp)
     : requestId(requestId),
       itemId(itemId),
       itemName(itemName),
@@ -13,32 +20,47 @@ RestockRequest::RestockRequest(const std::string &requestId,
       requestedQuantity(requestedQuantity),
       timestamp(timestamp) {}
 
-const std::string &RestockRequest::getRequestId() const
+/*
+ * Getter Methods
+ */
+const string &RestockRequest::getRequestId() const
 {
     return requestId;
 }
 
-const std::string &RestockRequest::getItemId() const
+const string &RestockRequest::getItemId() const
 {
     return itemId;
 }
 
-const std::string &RestockRequest::getItemName() const
+const string &RestockRequest::getItemName() const
 {
     return itemName;
 }
 
+/*
+ * Returns the current stock quantity
+ * of the item before restocking.
+ */
 int RestockRequest::getCurrentQuantity() const
 {
     return currentQuantity;
 }
 
+/*
+ * Returns the quantity requested
+ * to be added to inventory.
+ */
 int RestockRequest::getRequestedQuantity() const
 {
     return requestedQuantity;
 }
 
-const std::string &RestockRequest::getTimestamp() const
+/*
+ * Returns the timestamp indicating when
+ * the restock request was created.
+ */
+const string &RestockRequest::getTimestamp() const
 {
     return timestamp;
 }

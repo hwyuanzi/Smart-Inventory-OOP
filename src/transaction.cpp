@@ -1,11 +1,19 @@
 #include "transaction.h"
+#include <string>
+using namespace std;
 
-Transaction::Transaction(const std::string &transactionId,
-                         const std::string &itemId,
-                         const std::string &itemName,
+/*
+ * Parameterized constructor for creating a Transaction object.
+ * Initializes transaction details including transaction ID,
+ * item info (ID, name), quantity purchased, total price,
+ * and the transaction timestamp.
+ */
+Transaction::Transaction(const string &transactionId,
+                         const string &itemId,
+                         const string &itemName,
                          int quantity,
                          double totalPrice,
-                         const std::string &timestamp)
+                         const string &timestamp)
     : transactionId(transactionId),
       itemId(itemId),
       itemName(itemName),
@@ -13,17 +21,20 @@ Transaction::Transaction(const std::string &transactionId,
       totalPrice(totalPrice),
       timestamp(timestamp) {}
 
-const std::string &Transaction::getTransactionId() const
+/*
+ * Getter Methods
+ */
+const string &Transaction::getTransactionId() const
 {
     return transactionId;
 }
 
-const std::string &Transaction::getItemId() const
+const string &Transaction::getItemId() const
 {
     return itemId;
 }
 
-const std::string &Transaction::getItemName() const
+const string &Transaction::getItemName() const
 {
     return itemName;
 }
@@ -38,7 +49,7 @@ double Transaction::getTotalPrice() const
     return totalPrice;
 }
 
-const std::string &Transaction::getTimestamp() const
+const string &Transaction::getTimestamp() const
 {
     return timestamp;
 }

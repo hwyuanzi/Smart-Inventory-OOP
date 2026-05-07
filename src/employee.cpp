@@ -5,47 +5,83 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
+#include <string>
+using namespace std;
 
+/*
+ * Helper function that generates the current
+ * local date and time as a formatted timestamp.
+ * Used for transaction and restock request records.
+ */
 namespace
 {
-std::string nowTimestamp()
-{
-    const std::time_t now = std::time(nullptr);
-    std::tm local = *std::localtime(&now);
-    std::ostringstream stream;
-    stream << std::put_time(&local, "%Y-%m-%d %H:%M:%S");
-    return stream.str();
-}
+    std::string nowTimestamp()
+    {
+        const time_t now = time(nullptr);
+        tm local = *localtime(&now);
+        ostringstream stream;
+        stream << put_time(&local, "%Y-%m-%d %H:%M:%S");
+        return stream.str();
+    }
 }
 
-Employee::Employee(const std::string &username, const std::string &password, const std::string &employeeId)
+/*
+ * Parameterized constructor for creating an Employee object.
+ * Initializes the employee account with a username,
+ * password, and employee ID while assigning the role
+ * as "employee" through the base User class.
+ */
+Employee::Employee(const string &username, const string &password, const string &employeeId)
     : User(username, password, "employee"), employeeId(employeeId) {}
 
-const std::string &Employee::getEmployeeId() const
-{
-    return employeeId;
-}
-
+/*
+ * Displays all inventory items to the console.
+ * If the inventory is empty, an appropriate
+ * message is shown to the user.
+ */
 void Employee::viewInventory(Inventory &inventory) const
 {
-    std::vector<Item> &items = inventory.getAllItems();
+    vector<Item> &items = inventory.getAllItems();
     if (items.empty())
     {
-        std::cout << "Inventory is empty.\n";
+        cout << "Inventory is empty.\n";
         return;
     }
     for (const Item &item : items)
     {
-        std::cout << item.toString() << '\n';
+        cout << item.toString() << '\n';
     }
 }
 
-std::vector<Item *> Employee::searchItem(Inventory &inventory, const std::string &query) const
+/*
+ * Searches the inventory for items matching
+ * the provided query string.
+ *
+ * Returns a vector containing pointers
+ * to all matching items.
+ */
+vector<Item *> Employee::searchItem(Inventory &inventory, const string &query) const
 {
     return inventory.searchByName(query);
 }
 
-bool Employee::makeTransaction(Inventory &inventory, std::vector<Transaction> &transactions, const std::string &id, int qty, std::string &msg) const
+/*
+ * Processes a sales transaction for a specific item.
+ *
+ * The method:
+ * 1. Verifies the item exists.
+ * 2. Validates the requested quantity.
+ * 3. Calculates the transaction total.
+ * 4. Updates inventory stock quantity.
+ * 5. Automatically creates a restock request
+ *    if the item becomes low in stock.
+ * 6. Records the completed transaction.
+ *
+ * Returns true if the transaction succeeds;
+ * otherwise returns false and stores an
+ * error message in the provided msg variable.
+ */
+bool Employee::makeTransaction(Inventory &inventory, vector<Transaction> &transactions, const string &id, int qty, string &msg) const
 {
     Item *item = inventory.findItem(id);
     if (item == nullptr)
@@ -66,9 +102,14 @@ bool Employee::makeTransaction(Inventory &inventory, std::vector<Transaction> &t
         return false;
     }
 
+    /*
+     * Automatically generate a restock request
+     * if the updated quantity falls below
+     * the item's threshold.
+     */
     if (item->isLowStock())
     {
-        const int requestQty = std::max(1, item->getThreshold() * 2 - item->getQuantity());
+        const int requestQty = max(1, item->getThreshold() * 2 - item->getQuantity());
         inventory.addRestockRequest(RestockRequest(
             inventory.generateRestockId(),
             item->getItemId(),
@@ -78,8 +119,12 @@ bool Employee::makeTransaction(Inventory &inventory, std::vector<Transaction> &t
             nowTimestamp()));
     }
 
+    /*
+     * Record the successful transaction
+     * in the transaction history.
+     */
     transactions.emplace_back(
-        "T" + std::to_string(static_cast<int>(transactions.size()) + 1),
+        "T" + to_string(static_cast<int>(transactions.size()) + 1),
         id,
         item->getName(),
         qty,
@@ -90,16 +135,28 @@ bool Employee::makeTransaction(Inventory &inventory, std::vector<Transaction> &t
     return true;
 }
 
+/*
+ * Displays the employee menu options
+ * available in the inventory system.
+ */
 void Employee::displayMenu() const
 {
-    std::cout << "\n=== " << getRoleDisplay() << " Menu ===\n";
-    std::cout << "1. View Full Inventory\n";
-    std::cout << "2. Search Item\n";
-    std::cout << "3. Record Sale / Make Transaction\n";
-    std::cout << "0. Logout\n";
+    cout << "\n=== " << getRoleDisplay() << " Menu ===\n";
+    cout << "1. View Full Inventory\n";
+    cout << "2. Search Item\n";
+    cout << "3. Record Sale / Make Transaction\n";
+    cout << "0. Logout\n";
 }
 
-std::string Employee::getRoleDisplay() const
+/*
+ * Getter Methods
+ */
+const string &Employee::getEmployeeId() const
+{
+    return employeeId;
+}
+
+string Employee::getRoleDisplay() const
 {
     return "Employee";
 }

@@ -1,19 +1,35 @@
 #include "user.h"
+#include <string>
+using namespace std;
 
-User::User(const std::string &username, const std::string &password, const std::string &role)
+/*
+ * Parameterized constructor for creating a User object.
+ * Initializes the username, password, and role
+ * associated with the user account.
+ */
+User::User(const string &username, const string &password, const string &role)
     : username(username), password(password), role(role) {}
 
-const std::string &User::getUsername() const
+/*
+ * Getter Methods
+ */
+const string &User::getUsername() const
 {
     return username;
 }
 
-const std::string &User::getRole() const
+const string &User::getRole() const
 {
     return role;
 }
 
-bool User::authenticate(const std::string &pwd) const
+/*
+ * Verifies whether the provided password
+ * matches the stored user password.
+ * Returns true if authentication succeeds;
+ * otherwise returns false.
+ */
+bool User::authenticate(const string &pwd) const
 {
     return pwd == password;
 }
