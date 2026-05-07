@@ -6,7 +6,7 @@ using namespace std;
 class User
 {
     /*
-     * Protected Attributes
+     * Shared account fields for all user roles.
      */
 protected:
     string username;
@@ -15,19 +15,19 @@ protected:
 
 public:
     /*
-     * Public Constructor
+     * Set up a base user account.
      */
     User(const string &username, const string &password, const string &role);
 
     /*
-     * Virtual Methods
+     * Role-specific behavior supplied by subclasses.
      */
     virtual ~User() = default;
     virtual void displayMenu() const = 0;
     virtual string getRoleDisplay() const = 0;
 
     /*
-     * Getter Methods
+     * Account accessors.
      */
     const string &getUsername() const;
     const string &getRole() const;

@@ -3,15 +3,13 @@
 using namespace std;
 
 /*
- * Parameterized constructor for creating a User object.
- * Initializes the username, password, and role
- * associated with the user account.
+ * Base login fields shared by employees and managers.
  */
 User::User(const string &username, const string &password, const string &role)
     : username(username), password(password), role(role) {}
 
 /*
- * Getter Methods
+ * Account field accessors.
  */
 const string &User::getUsername() const
 {
@@ -24,10 +22,7 @@ const string &User::getRole() const
 }
 
 /*
- * Verifies whether the provided password
- * matches the stored user password.
- * Returns true if authentication succeeds;
- * otherwise returns false.
+ * Plain password check used by the CLI login flow.
  */
 bool User::authenticate(const string &pwd) const
 {

@@ -6,9 +6,7 @@
 using namespace std;
 
 /*
- * Converts all characters in a string to lowercase.
- * Used to make searching case-insensitive so that
- * item names and IDs can be matched more easily.
+ * Normalize text before matching names or IDs.
  */
 string Inventory::toLower(const std::string &text)
 {
@@ -19,13 +17,12 @@ string Inventory::toLower(const std::string &text)
 }
 
 /*
- * Default constructor for the Inventory class.
- * Initializes the restock request ID counter.
+ * Restock request IDs start fresh for each program run.
  */
 Inventory::Inventory() : nextRestockId(1) {}
 
 /*
- * Adds a new item object to the inventory list.
+ * Append a new item to the in-memory inventory.
  */
 void Inventory::addItem(const Item &item)
 {
@@ -33,12 +30,7 @@ void Inventory::addItem(const Item &item)
 }
 
 /*
- * Removes an item from the inventory using its ID.
- * Also removes any associated restock request
- * linked to the same item.
- *
- * Returns true if the item was found and removed;
- * otherwise returns false.
+ * Delete the item and clean up any pending restock request for it.
  */
 bool Inventory::removeItem(const string &itemId)
 {
@@ -54,9 +46,7 @@ bool Inventory::removeItem(const string &itemId)
 }
 
 /*
- * Searches for an item by its ID.
- * Returns a pointer to the matching item if found;
- * otherwise returns nullptr.
+ * Find the stored item with this ID, or return nullptr when it is missing.
  */
 Item *Inventory::findItem(const string &itemId)
 {
@@ -71,12 +61,7 @@ Item *Inventory::findItem(const string &itemId)
 }
 
 /*
- * Searches the inventory for items whose name
- * or ID contains the given query string.
- * The search is case-insensitive.
- *
- * Returns a vector containing pointers to
- * all matching items.
+ * Match a query against item names and IDs without caring about case.
  */
 vector<Item *> Inventory::searchByName(const string &query)
 {
@@ -95,8 +80,7 @@ vector<Item *> Inventory::searchByName(const string &query)
 }
 
 /*
- * Returns a reference to the vector
- * containing all inventory items.
+ * Expose the item list for menu display and simple reports.
  */
 vector<Item> &Inventory::getAllItems()
 {
@@ -104,12 +88,7 @@ vector<Item> &Inventory::getAllItems()
 }
 
 /*
- * Updates the main information of an item,
- * including its name, price, threshold,
- * and category.
- *
- * Returns true if the item exists and was updated;
- * otherwise returns false.
+ * Update editable item details. Quantity is handled separately.
  */
 bool Inventory::updateItem(const string &id, const string &name, double price, int threshold, const string &category)
 {
@@ -126,11 +105,7 @@ bool Inventory::updateItem(const string &id, const string &name, double price, i
 }
 
 /*
- * Updates the stock quantity of a specific item.
- * Negative quantities are not allowed.
- *
- * Returns true if the update succeeds;
- * otherwise returns false.
+ * Set the stock count after validating the item and the new quantity.
  */
 bool Inventory::updateStockQuantity(const string &id, int qty)
 {
@@ -144,11 +119,7 @@ bool Inventory::updateStockQuantity(const string &id, int qty)
 }
 
 /*
- * Retrieves all items that are currently
- * considered low in stock.
- *
- * Returns a vector containing pointers
- * to low-stock items.
+ * Collect items that have hit their restock threshold.
  */
 vector<Item *> Inventory::getLowStockItems()
 {
@@ -164,9 +135,7 @@ vector<Item *> Inventory::getLowStockItems()
 }
 
 /*
- * Adds a new restock request to the system.
- * Prevents duplicate requests for the same item
- * by checking existing request entries first.
+ * Keep only one open restock request per item.
  */
 void Inventory::addRestockRequest(const RestockRequest &request)
 {
@@ -181,8 +150,7 @@ void Inventory::addRestockRequest(const RestockRequest &request)
 }
 
 /*
- * Returns a reference to the vector
- * containing all restock requests.
+ * Expose the pending restock queue to manager workflows.
  */
 vector<RestockRequest> &Inventory::getRestockRequests()
 {
@@ -190,11 +158,7 @@ vector<RestockRequest> &Inventory::getRestockRequests()
 }
 
 /*
- * Removes a restock request associated
- * with a specific item ID.
- *
- * Returns true if a request was found and removed;
- * otherwise returns false.
+ * Clear the pending restock request for an item after it is handled.
  */
 bool Inventory::clearRestockRequest(const std::string &itemId)
 {
@@ -209,9 +173,7 @@ bool Inventory::clearRestockRequest(const std::string &itemId)
 }
 
 /*
- * Generates a unique restock request ID.
- * IDs are created sequentially in the format:
- * R1, R2, R3, ...
+ * Use short, readable request IDs in the CLI output.
  */
 string Inventory::generateRestockId()
 {

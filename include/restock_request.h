@@ -6,7 +6,7 @@ using namespace std;
 class RestockRequest
 {
     /*
-     * Private Attributes
+     * Pending restock details.
      */
 private:
     string requestId;
@@ -18,7 +18,7 @@ private:
 
 public:
     /*
-     * Public Constructor
+     * Create a request when stock drops too low.
      */
     RestockRequest(const string &requestId,
                    const string &itemId,
@@ -28,7 +28,7 @@ public:
                    const string &timestamp);
 
     /*
-     * Getter Methods
+     * Read request fields.
      */
     const string &getRequestId() const;
     const string &getItemId() const;

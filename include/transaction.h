@@ -6,7 +6,7 @@ using namespace std;
 class Transaction
 {
     /*
-     * Private Attributes
+     * Saved sale details.
      */
 private:
     string transactionId;
@@ -17,7 +17,7 @@ private:
     string timestamp;
 
     /*
-     * Public Constructor
+     * Create a transaction record after a sale succeeds.
      */
 public:
     Transaction(const string &transactionId,
@@ -28,7 +28,7 @@ public:
                 const string &timestamp);
 
     /*
-     * Getter Methods
+     * Read transaction fields.
      */
     const string &getTransactionId() const;
     const string &getItemId() const;

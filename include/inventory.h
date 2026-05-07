@@ -10,7 +10,7 @@ using namespace std;
 class Inventory
 {
     /*
-     * Private Attributes
+     * Inventory and pending restock state for the current run.
      */
 private:
     vector<Item> items;
@@ -22,7 +22,7 @@ public:
     Inventory();
 
     /*
-     * Inventory Operation Methods
+     * Core inventory operations used by the CLI roles.
      */
     void addItem(const Item &item);
     bool removeItem(const string &itemId);

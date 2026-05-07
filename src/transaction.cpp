@@ -3,10 +3,7 @@
 using namespace std;
 
 /*
- * Parameterized constructor for creating a Transaction object.
- * Initializes transaction details including transaction ID,
- * item info (ID, name), quantity purchased, total price,
- * and the transaction timestamp.
+ * Capture a completed sale as a simple immutable record.
  */
 Transaction::Transaction(const string &transactionId,
                          const string &itemId,
@@ -22,7 +19,7 @@ Transaction::Transaction(const string &transactionId,
       timestamp(timestamp) {}
 
 /*
- * Getter Methods
+ * Transaction field accessors.
  */
 const string &Transaction::getTransactionId() const
 {

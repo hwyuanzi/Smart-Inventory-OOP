@@ -5,9 +5,7 @@
 using namespace std;
 
 /*
- * Parameterized constructor for creating a Manager object.
- * Initializes the manager account using the Employee base class
- * constructor and assigns the role as "manager".
+ * Managers share Employee behavior, then override the role used by login/menu code.
  */
 Manager::Manager(const string &username, const string &password, const string &managerId)
     : Employee(username, password, managerId), managerId(managerId)
@@ -16,7 +14,7 @@ Manager::Manager(const string &username, const string &password, const string &m
 }
 
 /*
- * Getter Method
+ * Manager ID accessor.
  */
 const string &Manager::getManagerId() const
 {
@@ -24,7 +22,7 @@ const string &Manager::getManagerId() const
 }
 
 /*
- * Adds a new item to the inventory system.
+ * Manager wrapper around adding inventory.
  */
 void Manager::addItem(Inventory &inventory, const Item &item) const
 {
@@ -32,11 +30,7 @@ void Manager::addItem(Inventory &inventory, const Item &item) const
 }
 
 /*
- * Deletes an item from the inventory using its ID.
- * Stores a success or failure message in msg.
- *
- * Returns true if the item was successfully removed;
- * otherwise returns false.
+ * Delete by ID and return a message the CLI can print directly.
  */
 bool Manager::deleteItem(Inventory &inventory, const string &itemId, string &msg) const
 {
@@ -46,11 +40,7 @@ bool Manager::deleteItem(Inventory &inventory, const string &itemId, string &msg
 }
 
 /*
- * Retrieves all items currently marked
- * as low in stock.
- *
- * Returns a vector containing pointers
- * to low-stock items.
+ * Pull the current low-stock list for manager review.
  */
 vector<Item *> Manager::checkLowStockAlerts(Inventory &inventory) const
 {
@@ -58,12 +48,7 @@ vector<Item *> Manager::checkLowStockAlerts(Inventory &inventory) const
 }
 
 /*
- * Updates an item's details including its
- * name, price, threshold, and category.
- * Stores a success or failure message in msg.
- *
- * Returns true if the update succeeds;
- * otherwise returns false.
+ * Update item metadata and keep the user-facing status message close by.
  */
 bool Manager::updateItemDetails(
     Inventory &inventory,
@@ -80,11 +65,7 @@ bool Manager::updateItemDetails(
 }
 
 /*
- * Updates the stock quantity of a specific item.
- * Stores a success or failure message in msg.
- *
- * Returns true if the quantity update succeeds;
- * otherwise returns false.
+ * Direct stock adjustment for manager corrections or manual restocks.
  */
 bool Manager::updateStockQuantity(Inventory &inventory, const string &id, int qty, string &msg) const
 {
@@ -94,8 +75,7 @@ bool Manager::updateStockQuantity(Inventory &inventory, const string &id, int qt
 }
 
 /*
- * Returns all current restock requests
- * stored in the inventory system.
+ * Return the live restock request list for review.
  */
 vector<RestockRequest> &Manager::reviewRestockRequests(Inventory &inventory) const
 {
@@ -103,17 +83,7 @@ vector<RestockRequest> &Manager::reviewRestockRequests(Inventory &inventory) con
 }
 
 /*
- * Processes and fulfills a restock request
- * for a specific item.
- *
- * The method:
- * 1. Verifies the item exists.
- * 2. Searches for a matching restock request.
- * 3. Adds the requested quantity to inventory stock.
- * 4. Removes the completed restock request.
- *
- * Returns true if the request is fulfilled successfully;
- * otherwise returns false and stores an error message in msg.
+ * Fulfill the matching request, add the requested stock, then remove the request.
  */
 bool Manager::fulfillRestockRequest(Inventory &inventory, const string &itemId, string &msg) const
 {
@@ -147,8 +117,7 @@ bool Manager::fulfillRestockRequest(Inventory &inventory, const string &itemId, 
 }
 
 /*
- * Displays the manager menu options
- * available in the inventory system.
+ * Manager-facing CLI options.
  */
 void Manager::displayMenu() const
 {
@@ -166,7 +135,7 @@ void Manager::displayMenu() const
 }
 
 /*
- * Returns the display name of the role.
+ * Label used in menu headers.
  */
 string Manager::getRoleDisplay() const
 {

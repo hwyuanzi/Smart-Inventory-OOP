@@ -9,19 +9,19 @@ using namespace std;
 class Manager : public Employee
 {
     /*
-     * Private attribute
+     * Manager-specific ID.
      */
 private:
     string managerId;
 
     /*
-     * Public Constructor
+     * Create a manager account.
      */
 public:
     Manager(const string &username, const string &password, const string &managerId);
 
     /*
-     * Manager Menu Operation Methods
+     * Manager menu actions.
      */
     const string &getManagerId() const;
     void addItem(Inventory &inventory, const Item &item) const;

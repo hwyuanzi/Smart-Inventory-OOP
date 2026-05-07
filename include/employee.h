@@ -9,19 +9,19 @@
 class Employee : public User
 {
     /*
-     * Protected Attribute
+     * Available to Manager because Manager extends Employee.
      */
 protected:
     string employeeId;
 
 public:
     /*
-     * Public Constructor
+     * Create an employee account.
      */
     Employee(const string &username, const string &password, const string &employeeId);
 
     /*
-     * Employee Menu Operation Methods
+     * Employee menu actions.
      */
     void viewInventory(Inventory &inventory) const;
     vector<Item *> searchItem(Inventory &inventory, const string &query) const;
@@ -29,7 +29,7 @@ public:
     void displayMenu() const override;
 
     /*
-     * Getter Methods
+     * Employee identity helpers.
      */
     const string &getEmployeeId() const;
     string getRoleDisplay() const override;

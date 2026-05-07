@@ -9,9 +9,7 @@
 using namespace std;
 
 /*
- * Helper function that generates the current
- * local date and time as a formatted timestamp.
- * Used for transaction and restock request records.
+ * Timestamp format shared by transactions and restock requests.
  */
 namespace
 {
@@ -26,18 +24,13 @@ namespace
 }
 
 /*
- * Parameterized constructor for creating an Employee object.
- * Initializes the employee account with a username,
- * password, and employee ID while assigning the role
- * as "employee" through the base User class.
+ * Employees use the base User login fields plus their staff ID.
  */
 Employee::Employee(const string &username, const string &password, const string &employeeId)
     : User(username, password, "employee"), employeeId(employeeId) {}
 
 /*
- * Displays all inventory items to the console.
- * If the inventory is empty, an appropriate
- * message is shown to the user.
+ * Print the current inventory, keeping the empty case explicit.
  */
 void Employee::viewInventory(Inventory &inventory) const
 {
@@ -54,11 +47,7 @@ void Employee::viewInventory(Inventory &inventory) const
 }
 
 /*
- * Searches the inventory for items matching
- * the provided query string.
- *
- * Returns a vector containing pointers
- * to all matching items.
+ * Let Inventory own the actual search rules.
  */
 vector<Item *> Employee::searchItem(Inventory &inventory, const string &query) const
 {
@@ -66,20 +55,8 @@ vector<Item *> Employee::searchItem(Inventory &inventory, const string &query) c
 }
 
 /*
- * Processes a sales transaction for a specific item.
- *
- * The method:
- * 1. Verifies the item exists.
- * 2. Validates the requested quantity.
- * 3. Calculates the transaction total.
- * 4. Updates inventory stock quantity.
- * 5. Automatically creates a restock request
- *    if the item becomes low in stock.
- * 6. Records the completed transaction.
- *
- * Returns true if the transaction succeeds;
- * otherwise returns false and stores an
- * error message in the provided msg variable.
+ * Record a sale, update stock, and queue a restock request if the sale
+ * leaves the item at or below its threshold.
  */
 bool Employee::makeTransaction(Inventory &inventory, vector<Transaction> &transactions, const string &id, int qty, string &msg) const
 {
@@ -103,9 +80,7 @@ bool Employee::makeTransaction(Inventory &inventory, vector<Transaction> &transa
     }
 
     /*
-     * Automatically generate a restock request
-     * if the updated quantity falls below
-     * the item's threshold.
+     * Request enough stock to bring the item back to about twice its threshold.
      */
     if (item->isLowStock())
     {
@@ -120,8 +95,7 @@ bool Employee::makeTransaction(Inventory &inventory, vector<Transaction> &transa
     }
 
     /*
-     * Record the successful transaction
-     * in the transaction history.
+     * Keep the completed sale in memory for this run.
      */
     transactions.emplace_back(
         "T" + to_string(static_cast<int>(transactions.size()) + 1),
@@ -136,8 +110,7 @@ bool Employee::makeTransaction(Inventory &inventory, vector<Transaction> &transa
 }
 
 /*
- * Displays the employee menu options
- * available in the inventory system.
+ * Employee-facing CLI options.
  */
 void Employee::displayMenu() const
 {
@@ -149,7 +122,7 @@ void Employee::displayMenu() const
 }
 
 /*
- * Getter Methods
+ * Simple accessors.
  */
 const string &Employee::getEmployeeId() const
 {

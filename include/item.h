@@ -6,7 +6,7 @@ using namespace std;
 class Item
 {
     /*
-     * Private Attributes
+     * Item state stored in memory.
      */
 private:
     string itemId;
@@ -18,12 +18,12 @@ private:
 
 public:
     /*
-     * Public Constructor
+     * Build an item from generated/user-provided fields.
      */
     Item(const string &id, const string &name, int qty, double price, int thresh, const string &category);
 
     /*
-     * Getter Methods
+     * Read access.
      */
     const string &getItemId() const;
     const string &getName() const;
@@ -33,7 +33,7 @@ public:
     const string &getCategory() const;
 
     /*
-     * Setter Methods
+     * Manager update hooks.
      */
     void setName(const string &name);
     void setQuantity(int quantity);

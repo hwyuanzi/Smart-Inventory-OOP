@@ -3,9 +3,7 @@
 using namespace std;
 
 /*
- * Parameterized constructor for creating a RestockRequest object.
- * Initializes all request details including request ID,
- * item information, stock quantities, and timestamp.
+ * Snapshot the item state at the time the restock request is opened.
  */
 RestockRequest::RestockRequest(const string &requestId,
                                const string &itemId,
@@ -21,7 +19,7 @@ RestockRequest::RestockRequest(const string &requestId,
       timestamp(timestamp) {}
 
 /*
- * Getter Methods
+ * Basic request identifiers.
  */
 const string &RestockRequest::getRequestId() const
 {
@@ -39,8 +37,7 @@ const string &RestockRequest::getItemName() const
 }
 
 /*
- * Returns the current stock quantity
- * of the item before restocking.
+ * Quantity on hand when the request was created.
  */
 int RestockRequest::getCurrentQuantity() const
 {
@@ -48,8 +45,7 @@ int RestockRequest::getCurrentQuantity() const
 }
 
 /*
- * Returns the quantity requested
- * to be added to inventory.
+ * Amount the manager should add when fulfilling this request.
  */
 int RestockRequest::getRequestedQuantity() const
 {
@@ -57,8 +53,7 @@ int RestockRequest::getRequestedQuantity() const
 }
 
 /*
- * Returns the timestamp indicating when
- * the restock request was created.
+ * Creation time shown in reports if needed.
  */
 const string &RestockRequest::getTimestamp() const
 {
