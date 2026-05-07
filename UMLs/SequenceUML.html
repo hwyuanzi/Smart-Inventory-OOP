@@ -23,38 +23,6 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <body>
 <h1>SmartInventory — Sequence Diagrams</h1>
 <!-- ──▶ call (solid filled arrow)  ╌╌▷ return (dashed open)  ↺ self-call  «create» instantiation  ▬ activation bar -->
-<p class="cap" style="margin-bottom:14px;">Note: All manager-side sequence diagrams (UC-05 to UC-10) require UC-04 (Manager Authentication) as a session precondition.</p>
-
-<!-- ══ SD-4  UC-04: Manager Authentication ══ -->
-<div class="sd">
-<div class="sd-h">SD-4 · UC-04 — Manager Authentication</div>
-<div class="wrap"><svg viewBox="0 0 760 260" xmlns="http://www.w3.org/2000/svg"
-  style="width:100%;min-width:520px;font-family:'Courier New',monospace;font-size:11px;">
-<defs>
-<marker id="f10" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b10" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
-</defs>
-<rect width="760" height="260" fill="#fff"/>
-<rect x="16" y="16" width="110" height="28" fill="#111" rx="2"/><text x="71" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
-<rect x="260" y="16" width="152" height="28" fill="#111" rx="2"/><text x="336" y="35" text-anchor="middle" font-size="11" fill="#fff">:InventorySystem</text>
-<rect x="534" y="16" width="106" height="28" fill="#111" rx="2"/><text x="587" y="35" text-anchor="middle" font-size="11" fill="#fff">:User</text>
-<line x1="71" y1="44" x2="71" y2="248" stroke="#ccc" stroke-width="1" stroke-dasharray="5,3"/>
-<line x1="336" y1="44" x2="336" y2="248" stroke="#ccc" stroke-width="1" stroke-dasharray="5,3"/>
-<line x1="587" y1="44" x2="587" y2="248" stroke="#ccc" stroke-width="1" stroke-dasharray="5,3"/>
-<rect x="67" y="72" width="8" height="148" fill="#ddd" stroke="#bbb" stroke-width="0.6"/>
-<rect x="332" y="88" width="8" height="118" fill="#ddd" stroke="#bbb" stroke-width="0.6"/>
-<rect x="583" y="124" width="8" height="52" fill="#ddd" stroke="#bbb" stroke-width="0.6"/>
-<line x1="75" y1="88" x2="331" y2="88" stroke="#111" stroke-width="1.6" marker-end="url(#f10)"/>
-<text x="203" y="81" text-anchor="middle">1: login(username, password)</text>
-<line x1="340" y1="124" x2="582" y2="124" stroke="#111" stroke-width="1.6" marker-end="url(#f10)"/>
-<text x="461" y="117" text-anchor="middle">2: authenticate(password)</text>
-<line x1="582" y1="160" x2="340" y2="160" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#b10)"/>
-<text x="461" y="153" text-anchor="middle">3: return true/false</text>
-<line x1="331" y1="202" x2="75" y2="202" stroke="#555" stroke-width="1.2" stroke-dasharray="5,3" marker-end="url(#b10)"/>
-<text x="203" y="195" text-anchor="middle">4: start/deny manager session</text>
-</svg></div>
-<p class="cap">UC-04 authenticates manager credentials before any manager-only sequence (UC-05 to UC-10) is executed.</p>
-</div>
 
 <!-- ══ SD-1  UC-01: View Full Inventory ══ -->
 <div class="sd">
@@ -63,7 +31,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
   style="width:100%;min-width:500px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b1" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="700" height="310" fill="#fff"/>
 <rect x="16" y="16" width="110" height="28" fill="#111" rx="2"/><text x="71" y="35" text-anchor="middle" font-size="11" fill="#fff">:Employee</text>
@@ -99,7 +67,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
   style="width:100%;min-width:500px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b2" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="700" height="270" fill="#fff"/>
 <rect x="16" y="16" width="110" height="28" fill="#111" rx="2"/><text x="71" y="35" text-anchor="middle" font-size="11" fill="#fff">:Employee</text>
@@ -123,7 +91,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="298" y1="250" x2="322" y2="250" stroke="#bbb" stroke-width="1.2"/>
 <line x1="548" y1="250" x2="572" y2="250" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Employee.searchItem() → Inventory.searchByName(). Case-insensitive substring match on name or itemId returns all matching Item pointers.</p>
+<p class="cap">Employee.searchItem() → Inventory.searchByName(). Case-insensitive substring match returns all matching Item pointers.</p>
 </div>
 
 <!-- ══ SD-3  UC-03: Make Transaction ══ -->
@@ -133,7 +101,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
   style="width:100%;min-width:640px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b3" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="920" height="500" fill="#fff"/>
 <rect x="12" y="16" width="110" height="28" fill="#111" rx="2"/><text x="67" y="35" text-anchor="middle" font-size="11" fill="#fff">:Employee</text>
@@ -171,17 +139,17 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="496" y1="478" x2="520" y2="478" stroke="#bbb" stroke-width="1.2"/>
 <line x1="742" y1="478" x2="766" y2="478" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: item located via UC-01 or UC-02. Step 6 fires only when post-sale qty ≤ threshold (auto-creates RestockRequest entries for later UC-10 review). Transaction «create» uses constructor: Transaction(tId,iId,iName,qty,total,ts).</p>
+<p class="cap">Precondition: item located via UC-01 or UC-02. Step 6 fires only when post-sale qty ≤ threshold (auto-triggers UC-09). Transaction «create» uses constructor: Transaction(tId,iId,iName,qty,total,ts).</p>
 </div>
 
-<!-- ══ SD-5  UC-05: Add Item ══ -->
+<!-- ══ SD-4  UC-04: Add Item ══ -->
 <div class="sd">
-<div class="sd-h">SD-5 · UC-05 — Add Item</div>
+<div class="sd-h">SD-4 · UC-04 — Add Item</div>
 <div class="wrap"><svg viewBox="0 0 880 460" xmlns="http://www.w3.org/2000/svg"
   style="width:100%;min-width:600px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b4" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="880" height="460" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -215,17 +183,17 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="484" y1="438" x2="508" y2="438" stroke="#bbb" stroke-width="1.2"/>
 <line x1="699" y1="438" x2="723" y2="438" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated. Manager.addItem() → IS.generateItemId() (self-call) → «create» Item → Inventory.addItem(). Item constructor: Item(id,name,qty,price,thresh,cat).</p>
+<p class="cap">Manager.addItem() → IS.generateItemId() (self-call) → «create» Item → Inventory.addItem(). Item constructor: Item(id,name,qty,price,thresh,cat).</p>
 </div>
 
-<!-- ══ SD-6  UC-06: Delete Item ══ -->
+<!-- ══ SD-5  UC-05: Delete Item ══ -->
 <div class="sd">
-<div class="sd-h">SD-6 · UC-06 — Delete Item</div>
+<div class="sd-h">SD-5 · UC-05 — Delete Item</div>
 <div class="wrap"><svg viewBox="0 0 680 270" xmlns="http://www.w3.org/2000/svg"
   style="width:100%;min-width:460px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b5" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="680" height="270" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -249,17 +217,17 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="274" y1="250" x2="298" y2="250" stroke="#bbb" stroke-width="1.2"/>
 <line x1="522" y1="250" x2="546" y2="250" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated and item is found via UC-01/UC-02. Inventory.removeItem() erases item and clears associated RestockRequests.</p>
+<p class="cap">Precondition: item found via UC-01/UC-02. Inventory.removeItem() erases item and clears associated RestockRequests.</p>
 </div>
 
-<!-- ══ SD-8  UC-08: Update Item Details ══ -->
+<!-- ══ SD-6  UC-06: Update Item Details ══ -->
 <div class="sd">
-<div class="sd-h">SD-8 · UC-08 — Update Item Details</div>
+<div class="sd-h">SD-6 · UC-06 — Update Item Details</div>
 <div class="wrap"><svg viewBox="0 0 900 390" xmlns="http://www.w3.org/2000/svg"
   style="width:100%;min-width:600px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f6" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b6" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b6" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="900" height="390" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -291,7 +259,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="495" y1="370" x2="519" y2="370" stroke="#bbb" stroke-width="1.2"/>
 <line x1="708" y1="370" x2="732" y2="370" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated and item is found via UC-01/UC-02. Inventory.updateItem() calls Item.setName/setPrice/setThreshold/setCategory. Quantity NOT changed.</p>
+<p class="cap">Precondition: item found via UC-01/UC-02. Inventory.updateItem() calls Item.setName/setPrice/setThreshold/setCategory. Quantity NOT changed.</p>
 </div>
 
 <!-- ══ SD-7  UC-07: Check Low Stock Alerts ══ -->
@@ -301,7 +269,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
   style="width:100%;min-width:600px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f7" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b7" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b7" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="880" height="430" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -335,17 +303,17 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="493" y1="410" x2="517" y2="410" stroke="#bbb" stroke-width="1.2"/>
 <line x1="708" y1="410" x2="732" y2="410" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated. Manager.checkLowStockAlerts() → Inventory.getLowStockItems() calls Item.isLowStock() on each item. isLowStock() returns quantity ≤ threshold.</p>
+<p class="cap">Manager.checkLowStockAlerts() → Inventory.getLowStockItems() calls Item.isLowStock() on each item. isLowStock() returns quantity ≤ threshold.</p>
 </div>
 
-<!-- ══ SD-9  UC-09: Update Stock Quantity ══ -->
+<!-- ══ SD-8  UC-08: Update Stock Quantity ══ -->
 <div class="sd">
-<div class="sd-h">SD-9 · UC-09 — Update Stock Quantity</div>
+<div class="sd-h">SD-8 · UC-08 — Update Stock Quantity</div>
 <div class="wrap"><svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg"
   style="width:100%;min-width:600px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f8" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b8" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b8" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="900" height="360" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -377,17 +345,17 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="495" y1="340" x2="519" y2="340" stroke="#bbb" stroke-width="1.2"/>
 <line x1="708" y1="340" x2="732" y2="340" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated and item is found via UC-01/UC-02. Sets absolute quantity via Inventory.updateStockQuantity() → Item.setQuantity(). Distinct from UC-03 (sale deduction).</p>
+<p class="cap">Precondition: item found via UC-01/UC-02. Sets absolute quantity via Inventory.updateStockQuantity() → Item.setQuantity(). Distinct from UC-03 (sale deduction).</p>
 </div>
 
-<!-- ══ SD-10  UC-10: Review Restock Requests ══ -->
+<!-- ══ SD-9  UC-09: Review Restock Requests ══ -->
 <div class="sd">
-<div class="sd-h">SD-10 · UC-10 — Review Restock Requests</div>
+<div class="sd-h">SD-9 · UC-09 — Review Restock Requests</div>
 <div class="wrap"><svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg"
   style="width:100%;min-width:600px;font-family:'Courier New',monospace;font-size:11px;">
 <defs>
 <marker id="f9" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#111"/></marker>
-<marker id="b9" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polyline points="0 0,7 3,0 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
+<marker id="b9" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polyline points="8 0,1 3,8 6" fill="none" stroke="#555" stroke-width="1.4"/></marker>
 </defs>
 <rect width="900" height="500" fill="#fff"/>
 <rect x="12" y="16" width="106" height="28" fill="#111" rx="2"/><text x="65" y="35" text-anchor="middle" font-size="11" fill="#fff">:Manager</text>
@@ -421,7 +389,7 @@ h1{font-size:20px;font-weight:700;border-bottom:2.5px solid #111;
 <line x1="258" y1="478" x2="282" y2="478" stroke="#bbb" stroke-width="1.2"/>
 <line x1="495" y1="478" x2="519" y2="478" stroke="#bbb" stroke-width="1.2"/>
 </svg></div>
-<p class="cap">Precondition: manager is authenticated. RestockRequests auto-created by UC-03. Manager.fulfillRestockRequest() → Inventory.updateStockQuantity() → Inventory.clearRestockRequest() removes the fulfilled request.</p>
+<p class="cap">RestockRequests auto-created by UC-03. Manager.fulfillRestockRequest() → Inventory.updateStockQuantity() → Inventory.clearRestockRequest() removes the fulfilled request.</p>
 </div>
 
 <div class="key">

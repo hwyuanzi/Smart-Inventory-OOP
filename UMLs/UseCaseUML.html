@@ -109,17 +109,17 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
 <div class="wrap">
 <!--
   Manager inherits Employee UCs (UC-01, UC-02, UC-03) via generalization.
-  Manager-exclusive direct UCs: UC-04 Authentication, UC-05 Add Item, UC-07 Check Low Stock, UC-10 Review Restock
+  Manager-exclusive direct UCs: UC-04 Add Item, UC-07 Check Low Stock, UC-09 Review Restock
   Extending UCs:
-    UC-06 Delete Item         extends UC-01 AND UC-02
-    UC-08 Update Item Details extends UC-01 AND UC-02
-    UC-09 Update Stock Qty    extends UC-01 AND UC-02
+    UC-05 Delete Item        extends UC-01 AND UC-02
+    UC-06 Update Item Details extends UC-01 AND UC-02
+    UC-08 Update Stock Qty   extends UC-01 AND UC-02
 
   LAYOUT to avoid crossings:
   - UC-01 left-center top, UC-02 right-center top (inherited, grey dashed border)
   - UC-03 inherited, bottom-center (grey dashed border)
-  - Manager-direct UCs on far right: UC-04, UC-05, UC-07, UC-10
-  - Extending UCs bottom row: UC-06, UC-08, UC-09
+  - Manager-direct UCs on far right: UC-04, UC-07, UC-09
+  - Extending UCs bottom row: UC-05, UC-06, UC-08
   - Each extending UC sends TWO dashed arrows, one to UC-01 (left) one to UC-02 (right)
   - Arrows are routed cleanly with slight x offset so labels are readable
 
@@ -179,78 +179,72 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
 <text x="420" y="248" text-anchor="middle" font-size="11" fill="#999">Record Sale</text>
 
 <!-- MANAGER-DIRECT UCs (right side) -->
-<!-- UC-05  cx=840 cy=148 -->
+<!-- UC-04  cx=840 cy=148 -->
 <ellipse cx="840" cy="148" rx="90" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="840" y="152" text-anchor="middle" font-size="11.5">UC-05: Add Item</text>
-
-<!-- UC-04  cx=840 cy=228 -->
-<ellipse cx="840" cy="228" rx="125" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="840" y="232" text-anchor="middle" font-size="11">UC-04: Manager Authentication</text>
+<text x="840" y="152" text-anchor="middle" font-size="11.5">UC-04: Add Item</text>
 
 <!-- UC-07  cx=840 cy=310 -->
 <ellipse cx="840" cy="310" rx="110" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
 <text x="840" y="314" text-anchor="middle" font-size="11">UC-07: Low Stock Alerts</text>
 
-<!-- UC-10  cx=840 cy=450 -->
+<!-- UC-09  cx=840 cy=450 -->
 <ellipse cx="840" cy="450" rx="120" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="840" y="454" text-anchor="middle" font-size="11">UC-10: Review Restock Req.</text>
+<text x="840" y="454" text-anchor="middle" font-size="11">UC-09: Review Restock Req.</text>
 
 <!-- EXTENDING UCs (bottom row) -->
-<!-- UC-06  cx=200 cy=560 -->
+<!-- UC-05  cx=200 cy=560 -->
 <ellipse cx="200" cy="558" rx="96" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="200" y="562" text-anchor="middle" font-size="11.5">UC-06: Delete Item</text>
+<text x="200" y="562" text-anchor="middle" font-size="11.5">UC-05: Delete Item</text>
 
-<!-- UC-08  cx=420 cy=560 -->
+<!-- UC-06  cx=420 cy=560 -->
 <ellipse cx="420" cy="558" rx="114" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="420" y="562" text-anchor="middle" font-size="11">UC-08: Update Item Details</text>
+<text x="420" y="562" text-anchor="middle" font-size="11">UC-06: Update Item Details</text>
 
-<!-- UC-09  cx=640 cy=560 -->
+<!-- UC-08  cx=640 cy=560 -->
 <ellipse cx="640" cy="558" rx="118" ry="22" fill="#fff" stroke="#111" stroke-width="1.5"/>
-<text x="640" y="562" text-anchor="middle" font-size="11">UC-09: Update Stock Qty</text>
+<text x="640" y="562" text-anchor="middle" font-size="11">UC-08: Update Stock Qty</text>
 
 <!-- ── ACTOR ASSOCIATIONS ── -->
-<!-- Manager → UC-05 -->
-<line x1="77" y1="418" x2="750" y2="148" stroke="#111" stroke-width="1.5"/>
 <!-- Manager → UC-04 -->
-<line x1="77" y1="422" x2="715" y2="228" stroke="#111" stroke-width="1.5"/>
+<line x1="77" y1="418" x2="750" y2="148" stroke="#111" stroke-width="1.5"/>
 <!-- Manager → UC-07 -->
 <line x1="77" y1="428" x2="730" y2="310" stroke="#111" stroke-width="1.5"/>
-<!-- Manager → UC-10 -->
+<!-- Manager → UC-09 -->
 <line x1="77" y1="438" x2="720" y2="450" stroke="#111" stroke-width="1.5"/>
 
 <!-- ── «extend» ARROWS: each extending UC → UC-01 AND UC-02 ──
-  UC-06: two arrows, anchored left/right of UC-06 top
+  UC-05: two arrows, anchored left/right of UC-05 top
+  UC-06: two arrows
   UC-08: two arrows
-  UC-09: two arrows
   Labels placed alongside each line
 -->
 
-<!-- UC-06 → UC-01 (left arrow, slight left offset) -->
+<!-- UC-05 → UC-01 (left arrow, slight left offset) -->
 <line x1="170" y1="537" x2="216" y2="132" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="175" y="384" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
 
-<!-- UC-06 → UC-02 (right arrow) -->
+<!-- UC-05 → UC-02 (right arrow) -->
 <line x1="230" y1="537" x2="494" y2="131" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="360" y="384" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
 
-<!-- UC-08 → UC-01 -->
+<!-- UC-06 → UC-01 -->
 <line x1="360" y1="537" x2="265" y2="132" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="295" y="440" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
 
-<!-- UC-08 → UC-02 -->
+<!-- UC-06 → UC-02 -->
 <line x1="480" y1="537" x2="537" y2="132" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="522" y="440" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
 
-<!-- UC-09 → UC-01 -->
+<!-- UC-08 → UC-01 -->
 <line x1="578" y1="537" x2="344" y2="132" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="442" y="440" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
 
-<!-- UC-09 → UC-02 -->
+<!-- UC-08 → UC-02 -->
 <line x1="700" y1="537" x2="614" y2="132" stroke="#555" stroke-width="1.2"
       stroke-dasharray="6,3" marker-end="url(#b_ext)"/>
 <text x="670" y="384" text-anchor="middle" font-size="9.5" fill="#444" font-style="italic">«extend»</text>
@@ -270,8 +264,7 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
 <text x="462" y="616" font-size="9.5" fill="#999">Inherited UC</text>
 </svg>
 </div>
-<p class="note">Manager inherits all Employee use cases via generalization (grey dashed UCs). UC-06, UC-08, UC-09 each extend both UC-01 (View Full Inventory) and UC-02 (Search Item) — the actor must first locate an item before performing the operation.</p>
-<p class="note">UC-04 (Manager Authentication) is modeled explicitly and is treated as the session precondition before manager-specific operations are executed.</p>
+<p class="note">Manager inherits all Employee use cases via generalization (grey dashed UCs). UC-05, UC-06, UC-08 each extend both UC-01 (View Full Inventory) and UC-02 (Search Item) — the actor must first locate an item before performing the operation.</p>
 
 <!-- ══════════════ USE CASE DESCRIPTIONS ══════════════ -->
 <h2>Use Case Descriptions</h2>
@@ -282,7 +275,7 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
   <table>
     <tr><td>UC Reference</td><td>UC-01</td></tr>
     <tr><td>Overview</td><td>Actor requests a complete listing of all items. System retrieves and displays itemId, name, category, quantity, price, and threshold for every stored item.</td></tr>
-    <tr><td>Related Use Cases</td><td>Base for UC-03, UC-06, UC-08, UC-09</td></tr>
+    <tr><td>Related Use Cases</td><td>Base for UC-03, UC-05, UC-06, UC-08</td></tr>
     <tr><td>Actors</td><td>Employee; Manager (via generalization)</td></tr>
   </table>
 </div>
@@ -292,7 +285,7 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
   <table>
     <tr><td>UC Reference</td><td>UC-02</td></tr>
     <tr><td>Overview</td><td>Actor enters a partial or full item name. System performs a case-insensitive substring match and returns all matching items, or reports none found.</td></tr>
-    <tr><td>Related Use Cases</td><td>Base for UC-03, UC-06, UC-08, UC-09</td></tr>
+    <tr><td>Related Use Cases</td><td>Base for UC-03, UC-05, UC-06, UC-08</td></tr>
     <tr><td>Actors</td><td>Employee; Manager (via generalization)</td></tr>
   </table>
 </div>
@@ -302,36 +295,36 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
   <table>
     <tr><td>UC Reference</td><td>UC-03</td></tr>
     <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, actor provides itemId and sale quantity. System validates stock, deducts quantity, records a Transaction, and auto-generates a RestockRequest if post-sale quantity ≤ threshold.</td></tr>
-    <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02; auto-generates RestockRequest entries reviewed in UC-10</td></tr>
+    <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02; auto-triggers UC-09</td></tr>
     <tr><td>Actors</td><td>Employee; Manager (via generalization)</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <div class="card-h">UC-04 · Manager Authentication</div>
+  <div class="card-h">UC-04 · Add Item</div>
   <table>
     <tr><td>UC Reference</td><td>UC-04</td></tr>
-    <tr><td>Overview</td><td>Manager provides credentials and the system verifies them before any manager-only operation is allowed.</td></tr>
-    <tr><td>Related Use Cases</td><td>Precondition for UC-05, UC-06, UC-07, UC-08, UC-09, UC-10</td></tr>
+    <tr><td>Overview</td><td>Manager provides name, initial quantity, price, restock threshold, and category for a new item. System generates a unique itemId and persists the new Item to inventory.</td></tr>
+    <tr><td>Related Use Cases</td><td>None</td></tr>
     <tr><td>Actors</td><td>Manager</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <div class="card-h">UC-05 · Add Item</div>
+  <div class="card-h">UC-05 · Delete Item</div>
   <table>
     <tr><td>UC Reference</td><td>UC-05</td></tr>
-    <tr><td>Overview</td><td>Manager provides name, initial quantity, price, restock threshold, and category for a new item. System generates a unique itemId and persists the new Item to inventory.</td></tr>
-    <tr><td>Related Use Cases</td><td>Requires UC-04</td></tr>
+    <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, Manager specifies the itemId for permanent deletion. System removes the item and clears any associated RestockRequests.</td></tr>
+    <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02</td></tr>
     <tr><td>Actors</td><td>Manager</td></tr>
   </table>
 </div>
 
 <div class="card">
-  <div class="card-h">UC-06 · Delete Item</div>
+  <div class="card-h">UC-06 · Update Item Details</div>
   <table>
     <tr><td>UC Reference</td><td>UC-06</td></tr>
-    <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, Manager specifies the itemId for permanent deletion. System removes the item and clears any associated RestockRequests.</td></tr>
+    <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, Manager modifies its name, price, threshold, and/or category. Stock quantity is NOT changed by this use case.</td></tr>
     <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02</td></tr>
     <tr><td>Actors</td><td>Manager</td></tr>
   </table>
@@ -348,19 +341,9 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
 </div>
 
 <div class="card">
-  <div class="card-h">UC-08 · Update Item Details</div>
+  <div class="card-h">UC-08 · Update Stock Quantity</div>
   <table>
     <tr><td>UC Reference</td><td>UC-08</td></tr>
-    <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, Manager modifies its name, price, threshold, and/or category. Stock quantity is NOT changed by this use case.</td></tr>
-    <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02</td></tr>
-    <tr><td>Actors</td><td>Manager</td></tr>
-  </table>
-</div>
-
-<div class="card">
-  <div class="card-h">UC-09 · Update Stock Quantity</div>
-  <table>
-    <tr><td>UC Reference</td><td>UC-09</td></tr>
     <tr><td>Overview</td><td>After locating an item via UC-01 or UC-02, Manager sets a new absolute stock quantity (e.g. after physical count). Distinct from UC-03 which records a sale deduction.</td></tr>
     <tr><td>Related Use Cases</td><td>Extends UC-01, Extends UC-02</td></tr>
     <tr><td>Actors</td><td>Manager</td></tr>
@@ -368,11 +351,11 @@ h2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
 </div>
 
 <div class="card">
-  <div class="card-h">UC-10 · Review Restock Requests</div>
+  <div class="card-h">UC-09 · Review Restock Requests</div>
   <table>
-    <tr><td>UC Reference</td><td>UC-10</td></tr>
+    <tr><td>UC Reference</td><td>UC-09</td></tr>
     <tr><td>Overview</td><td>Manager views all pending RestockRequests auto-created by UC-03. For each, Manager may fulfil it (restocking item quantity) or skip it. Fulfilled requests are cleared from the pending list.</td></tr>
-    <tr><td>Related Use Cases</td><td>Consumes RestockRequests generated by UC-03; requires UC-04</td></tr>
+    <tr><td>Related Use Cases</td><td>Auto-triggered by UC-03</td></tr>
     <tr><td>Actors</td><td>Manager</td></tr>
   </table>
 </div>
